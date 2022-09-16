@@ -26,7 +26,7 @@ from __future__ import print_function, absolute_import
 import json
 import os
 import subprocess
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from docopt import docopt
 from workflow import ICON_ERROR, ICON_WARNING
@@ -102,6 +102,8 @@ def clipboard_url():
     if url.scheme not in ('http', 'https'):
         return None
 
+
+
     return output.decode('utf-8')
 
 
@@ -117,8 +119,7 @@ def do_get_url(wf, args):
                           icon=ICON_CLIPBOARD))
 
     # Browsers
-    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', JXA_RUNNING] + \
-        BROWSERS.keys()
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', JXA_RUNNING] + list (BROWSERS.keys())
     output = subprocess.check_output(cmd)
     running = json.loads(output)
 
@@ -164,6 +165,7 @@ def do_import_search(wf, url):
     ]
 
     data = wf.cached_data('import', None, max_age=0, session=True)
+    
     if data:
         error = data['error']
         search = data['search']

@@ -26,12 +26,13 @@ from __future__ import print_function, absolute_import
 
 import json
 import os
-from plistlib import readPlist, readPlistFromString, writePlist
-
+#from plistlib import readPlist, readPlistFromString, writePlist
+import plistlib
 from docopt import docopt
 from searchio.core import Context
 from searchio.engines import Search
 from searchio import util
+import json
 
 log = util.logger(__name__)
 
@@ -44,56 +45,83 @@ YOFFSET = 170
 
 # UID of action to connect Script Filters to
 OPEN_URL_UID = '1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92'
+SCRIPT_FILTER = dict (
+ config = dict(
+    alfredfiltersresults = False,
+    alfredfiltersresultsmatchmode = 0,
+    argumenttrimmode = 0,
+    argumenttype = 0,
+    escaping = 102,
+    keyword = 'g',
+    queuedelaycustom = 3,
+    queuedelayimmediatelyinitially = False,
+    queuedelaymode = 0,
+    queuemode = 2,
+    runningsubtext = "Fetching results…",
+    script = './searchio search google-en "$1"',
+    scriptargtype = 1,
+    scriptfile = "",
+    subtext = "Searchio!",
+    title = "Google Search (English)",
+    type = 0,
+    withspace = True
+    ),
+type = "alfred.workflow.input.scriptfilter",
+uid = "18E144DF-1054-4A12-B5F0-AC05C6F7DEFD",
+version = 2
+  
+)
 
-SCRIPT_FILTER = """
-<dict>
-    <key>config</key>
-    <dict>
-        <key>alfredfiltersresults</key>
-        <false/>
-        <key>alfredfiltersresultsmatchmode</key>
-        <integer>0</integer>
-        <key>argumenttrimmode</key>
-        <integer>0</integer>
-        <key>argumenttype</key>
-        <integer>0</integer>
-        <key>escaping</key>
-        <integer>102</integer>
-        <key>keyword</key>
-        <string>g</string>
-        <key>queuedelaycustom</key>
-        <integer>3</integer>
-        <key>queuedelayimmediatelyinitially</key>
-        <false/>
-        <key>queuedelaymode</key>
-        <integer>0</integer>
-        <key>queuemode</key>
-        <integer>2</integer>
-        <key>runningsubtext</key>
-        <string>Fetching results…</string>
-        <key>script</key>
-        <string>./searchio search google-en "$1"</string>
-        <key>scriptargtype</key>
-        <integer>1</integer>
-        <key>scriptfile</key>
-        <string></string>
-        <key>subtext</key>
-        <string>Searchio!</string>
-        <key>title</key>
-        <string>Google Search (English)</string>
-        <key>type</key>
-        <integer>0</integer>
-        <key>withspace</key>
-        <true/>
-    </dict>
-    <key>type</key>
-    <string>alfred.workflow.input.scriptfilter</string>
-    <key>uid</key>
-    <string>18E144DF-1054-4A12-B5F0-AC05C6F7DEFD</string>
-    <key>version</key>
-    <integer>2</integer>
-</dict>
-"""
+# SCRIPT_FILTER = """
+# <dict>
+#  <key>config</key>
+#     <dict>
+#         <key>alfredfiltersresults</key>
+#         <false/>
+#         <key>alfredfiltersresultsmatchmode</key>
+#         <integer>0</integer>
+#         <key>argumenttrimmode</key>
+#         <integer>0</integer>
+#         <key>argumenttype</key>
+#         <integer>0</integer>
+#         <key>escaping</key>
+#         <integer>102</integer>
+#         <key>keyword</key>
+#         <string>g</string>
+#         <key>queuedelaycustom</key>
+#         <integer>3</integer>
+#         <key>queuedelayimmediatelyinitially</key>
+#         <false/>
+#         <key>queuedelaymode</key>
+#         <integer>0</integer>
+#         <key>queuemode</key>
+#         <integer>2</integer>
+#         <key>runningsubtext</key>
+#         <string>Fetching results…</string>
+#         <key>script</key>
+#         <string>./searchio search google-en "$1"</string>
+#         <key>scriptargtype</key>
+#         <integer>1</integer>
+#         <key>scriptfile</key>
+#         <string></string>
+#         <key>subtext</key>
+#         <string>Searchio!</string>
+#         <key>title</key>
+#         <string>Google Search (English)</string>
+#         <key>type</key>
+#         <integer>0</integer>
+#         <key>withspace</key>
+#         <true/>
+#     </dict>
+#     <key>type</key>
+#     <string>alfred.workflow.input.scriptfilter</string>
+#     <key>uid</key>
+#     <string>18E144DF-1054-4A12-B5F0-AC05C6F7DEFD</string>
+#     <key>version</key>
+#     <integer>2</integer>
+   
+# </dict>
+# """
 
 # Default search engines
 DEFAULTS = [
@@ -207,14 +235,25 @@ def add_script_filters(wf, data, searches=None):
         searches = [s for s in searches if s.uid in only]
 
     searches.sort(key=lambda s: s.title)
+    log.info("SEARCHES=====")
+    
 
     ypos = YPOS
     for s in searches:
+        log.info(s.keyword)
         if not s.keyword:
             log.error('No keyword for search "%s" (%s)', s.title, s.uid)
             continue
-
-        d = readPlistFromString(SCRIPT_FILTER)
+        
+        d13 = plistlib.dumps(SCRIPT_FILTER)
+        d = plistlib.loads(d13)
+        
+        log.info(type(d))
+        log.info(d)
+        #d = plistlib.loads(SCRIPT_FILTER.encode('utf-8'))
+        #d = readPlistFromString(SCRIPT_FILTER)
+              
+        
         d['uid'] = s.uid
         d['config']['title'] = s.title
         # d['config']['script'] = './searchio search {} "$1"'.format(s.uid)
@@ -273,8 +312,16 @@ def run(wf, argv):
         searches = [Search.from_dict(d) for d in DEFAULTS]
 
     ip = wf.workflowfile('info.plist')
-    data = readPlist(ip)
-
+    #data = readPlist(ip)
+    with open(ip, "rb") as file:
+        data = plistlib.load(file)
+    
+    #log.debug(data)
     remove_script_filters(wf, data)
+    #log.debug("COMPLETED REMOVE SCRIPT ----------")
+    #log.debug(f"data type is {type(data)}")
+    
     add_script_filters(wf, data, searches)
-    writePlist(data, ip)
+    with open(ip, "wb") as file:
+        plistlib.dump(data, file)
+    #writePlist(data, ip)

@@ -106,10 +106,10 @@ def run(wf, argv):
 
     p = ctx.search(s.uid)
 
-    with open(p, 'wb') as fp:
+    with open(p, 'w') as fp:
         json.dump(s.dict, fp, sort_keys=True, indent=2)
     # m.save(**d)
 
     log.debug('Adding new search to info.plist ...')
 
-    notify('Added New Search', d['title'])
+    #notify('Added New Search', d['title'])

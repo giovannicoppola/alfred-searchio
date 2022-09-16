@@ -58,7 +58,8 @@
 			</dict>
 		</array>
 		<key>1437F420-E986-408E-8416-34BFECD99FC8</key>
-		<array/>
+		<array>
+		</array>
 		<key>1DB25452-734C-4CB5-AD6C-247FA2DB8634</key>
 		<array>
 			<dict>
@@ -423,7 +424,8 @@
 			</dict>
 		</array>
 		<key>92B38613-CD0E-404E-8D4F-61D0A656F227</key>
-		<array/>
+		<array>
+		</array>
 		<key>96E873B9-B127-461A-B4D9-664BFA1ACF1B</key>
 		<array>
 			<dict>
@@ -549,7 +551,8 @@
 			</dict>
 		</array>
 		<key>B1B7F733-EFC9-4CE1-88E7-08A110720EE0</key>
-		<array/>
+		<array>
+		</array>
 		<key>BB94D851-58EE-4CD6-9931-AB2FB9449D29</key>
 		<array>
 			<dict>
@@ -736,7 +739,72 @@
 				<false/>
 			</dict>
 		</array>
-		<key>amazon-com</key>
+		<key>google-de</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>google-en</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>wikipedia-de</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>wikipedia-en</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>youtube-de</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>youtube-us</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -763,8 +831,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
 				<key>triggerid</key>
 				<string>config.engines</string>
 			</dict>
@@ -801,8 +867,6 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -841,7 +905,7 @@
 			<key>uid</key>
 			<string>2F2432A8-3DCF-47C7-A1F4-680C2BF00198</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -850,8 +914,6 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -888,7 +950,7 @@
 			<key>uid</key>
 			<string>A101898C-B574-4AFA-B342-8D5ED69E07FE</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -916,8 +978,6 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -954,13 +1014,11 @@
 			<key>uid</key>
 			<string>DA65DE7D-1536-46BB-B4AA-F6E58057C5AD</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
 				<key>triggerid</key>
 				<string>config.variants</string>
 			</dict>
@@ -993,8 +1051,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
 				<key>triggerid</key>
 				<string>config</string>
 			</dict>
@@ -1115,8 +1171,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
 				<key>triggerid</key>
 				<string>help</string>
 			</dict>
@@ -1225,8 +1279,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
 				<key>triggerid</key>
 				<string>user</string>
 			</dict>
@@ -1263,8 +1315,6 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -1301,14 +1351,9 @@
 			<key>uid</key>
 			<string>E56FFAA5-8274-4461-AA14-4AC2AECCF9A3</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
-			<key>config</key>
-			<dict>
-				<key>path</key>
-				<string></string>
-			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.revealfile</string>
 			<key>uid</key>
@@ -1411,8 +1456,6 @@ echo -n "$p"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
 				<key>triggerid</key>
 				<string>reload</string>
 			</dict>
@@ -1586,8 +1629,6 @@ end run</string>
 			<dict>
 				<key>argument</key>
 				<string></string>
-				<key>passthroughargument</key>
-				<false/>
 				<key>variables</key>
 				<dict>
 					<key>trigger</key>
@@ -1606,8 +1647,6 @@ end run</string>
 			<dict>
 				<key>argument</key>
 				<string></string>
-				<key>passthroughargument</key>
-				<false/>
 				<key>variables</key>
 				<dict>
 					<key>trigger</key>
@@ -1824,8 +1863,6 @@ end run</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
 				<key>triggerid</key>
 				<string>import</string>
 			</dict>
@@ -1843,8 +1880,6 @@ end run</string>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -1881,7 +1916,7 @@ end run</string>
 			<key>uid</key>
 			<string>C8075C84-9F68-4030-AB50-226032984DFE</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1928,14 +1963,12 @@ end run</string>
 			<dict>
 				<key>browser</key>
 				<string></string>
-				<key>skipqueryencode</key>
-				<false/>
-				<key>skipvarencode</key>
-				<false/>
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
 				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
@@ -2032,8 +2065,6 @@ exit $ok</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
 				<key>triggerid</key>
 				<string>new</string>
 			</dict>
@@ -2089,8 +2120,6 @@ variables={allvars}
 			<dict>
 				<key>argument</key>
 				<string></string>
-				<key>passthroughargument</key>
-				<false/>
 				<key>variables</key>
 				<dict>
 					<key>keyword</key>
@@ -2236,7 +2265,7 @@ ok=$?
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>azz</string>
+				<string>gd</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -2248,7 +2277,7 @@ ok=$?
 				<key>runningsubtext</key>
 				<string>Fetching results…</string>
 				<key>script</key>
-				<string>./search amazon-com "$1"</string>
+				<string>./search google-de "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -2256,7 +2285,7 @@ ok=$?
 				<key>subtext</key>
 				<string>Searchio!</string>
 				<key>title</key>
-				<string>Amazon United States</string>
+				<string>Google (Deutsch)</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -2265,7 +2294,242 @@ ok=$?
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>amazon-com</string>
+			<string>google-de</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>g</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Fetching results…</string>
+				<key>script</key>
+				<string>./search google-en "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Searchio!</string>
+				<key>title</key>
+				<string>Google (English)</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>google-en</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>wd</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Fetching results…</string>
+				<key>script</key>
+				<string>./search wikipedia-de "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Searchio!</string>
+				<key>title</key>
+				<string>Wikipedia (Deutsch)</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>wikipedia-de</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>w</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Fetching results…</string>
+				<key>script</key>
+				<string>./search wikipedia-en "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Searchio!</string>
+				<key>title</key>
+				<string>Wikipedia (English)</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>wikipedia-en</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>ytd</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Fetching results…</string>
+				<key>script</key>
+				<string>./search youtube-de "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Searchio!</string>
+				<key>title</key>
+				<string>YouTube (Germany)</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>youtube-de</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>yt</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Fetching results…</string>
+				<key>script</key>
+				<string>./search youtube-us "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Searchio!</string>
+				<key>title</key>
+				<string>YouTube (United States)</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>youtube-us</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -2282,9 +2546,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>colorindex</key>
 			<integer>10</integer>
 			<key>xpos</key>
-			<real>970.0</real>
+			<integer>970</integer>
 			<key>ypos</key>
-			<real>360.0</real>
+			<integer>360</integer>
 		</dict>
 		<key>05C661C6-76C1-4C45-AACC-2611A2859A4E</key>
 		<dict>
@@ -2293,9 +2557,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = delete</string>
 			<key>xpos</key>
-			<real>1740.0</real>
+			<integer>1740</integer>
 			<key>ypos</key>
-			<real>560.0</real>
+			<integer>560</integer>
 		</dict>
 		<key>0A5780FA-9C49-4528-BC2D-4E79BEBFDD57</key>
 		<dict>
@@ -2304,9 +2568,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Run "searchio clean" and "searchio reload"</string>
 			<key>xpos</key>
-			<real>1330.0</real>
+			<integer>1330</integer>
 			<key>ypos</key>
-			<real>530.0</real>
+			<integer>530</integer>
 		</dict>
 		<key>1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92</key>
 		<dict>
@@ -2315,9 +2579,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Open search results in browser</string>
 			<key>xpos</key>
-			<real>700.0</real>
+			<integer>700</integer>
 			<key>ypos</key>
-			<real>1230.0</real>
+			<integer>1230</integer>
 		</dict>
 		<key>1264847E-C784-4D54-B4E1-8017CB361C68</key>
 		<dict>
@@ -2326,27 +2590,27 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = back</string>
 			<key>xpos</key>
-			<real>1570.0</real>
+			<integer>1570</integer>
 			<key>ypos</key>
-			<real>240.0</real>
+			<integer>240</integer>
 		</dict>
 		<key>1437F420-E986-408E-8416-34BFECD99FC8</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>8</integer>
 			<key>xpos</key>
-			<real>1890.0</real>
+			<integer>1890</integer>
 			<key>ypos</key>
-			<real>360.0</real>
+			<integer>360</integer>
 		</dict>
 		<key>17C66D87-03DB-4E18-B72D-9F0DF56DECAB</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>7</integer>
 			<key>xpos</key>
-			<real>2420.0</real>
+			<integer>2420</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>1DB25452-734C-4CB5-AD6C-247FA2DB8634</key>
 		<dict>
@@ -2355,9 +2619,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>$keyword != ""</string>
 			<key>xpos</key>
-			<real>1570.0</real>
+			<integer>1570</integer>
 			<key>ypos</key>
-			<real>1410.0</real>
+			<integer>1410</integer>
 		</dict>
 		<key>21BEF8AB-87EA-469B-85A4-0C331260B4FF</key>
 		<dict>
@@ -2366,9 +2630,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Save search</string>
 			<key>xpos</key>
-			<real>1940.0</real>
+			<integer>1940</integer>
 			<key>ypos</key>
-			<real>1230.0</real>
+			<integer>1230</integer>
 		</dict>
 		<key>275E19D5-14AC-4CA0-B718-562E79802ADE</key>
 		<dict>
@@ -2377,9 +2641,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Add a new search</string>
 			<key>xpos</key>
-			<real>1150.0</real>
+			<integer>1150</integer>
 			<key>ypos</key>
-			<real>1230.0</real>
+			<integer>1230</integer>
 		</dict>
 		<key>2BBA8827-6AAC-48B3-8381-01C70621357C</key>
 		<dict>
@@ -2388,9 +2652,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Update info.plist and caches</string>
 			<key>xpos</key>
-			<real>1150.0</real>
+			<integer>1150</integer>
 			<key>ypos</key>
-			<real>530.0</real>
+			<integer>530</integer>
 		</dict>
 		<key>2F2432A8-3DCF-47C7-A1F4-680C2BF00198</key>
 		<dict>
@@ -2399,9 +2663,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>View configuration</string>
 			<key>xpos</key>
-			<real>270.0</real>
+			<integer>270</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>35A4633B-D448-4DEB-BE76-C7707446695A</key>
 		<dict>
@@ -2410,45 +2674,45 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = user</string>
 			<key>xpos</key>
-			<real>740.0</real>
+			<integer>740</integer>
 			<key>ypos</key>
-			<real>390.0</real>
+			<integer>390</integer>
 		</dict>
 		<key>377DF181-34CF-430F-AA06-30DF855D826E</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>9</integer>
 			<key>xpos</key>
-			<real>1530.0</real>
+			<integer>1530</integer>
 			<key>ypos</key>
-			<real>1060.0</real>
+			<integer>1060</integer>
 		</dict>
 		<key>3BC6AC1B-9CE9-49EB-B880-9912ED873BC3</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>9</integer>
 			<key>xpos</key>
-			<real>1850.0</real>
+			<integer>1850</integer>
 			<key>ypos</key>
-			<real>1260.0</real>
+			<integer>1260</integer>
 		</dict>
 		<key>4365F3B3-F981-4003-80D6-35DB36BC7E96</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>2</integer>
 			<key>xpos</key>
-			<real>970.0</real>
+			<integer>970</integer>
 			<key>ypos</key>
-			<real>1060.0</real>
+			<integer>1060</integer>
 		</dict>
 		<key>44A058F0-7677-47DA-A4C5-48A81C6D2448</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>9</integer>
 			<key>xpos</key>
-			<real>2420.0</real>
+			<integer>2420</integer>
 			<key>ypos</key>
-			<real>200.0</real>
+			<integer>200</integer>
 		</dict>
 		<key>45C09FE5-9A12-4E2A-B115-E9C42C6E93C2</key>
 		<dict>
@@ -2457,9 +2721,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Reload</string>
 			<key>xpos</key>
-			<real>2270.0</real>
+			<integer>2270</integer>
 			<key>ypos</key>
-			<real>1360.0</real>
+			<integer>1360</integer>
 		</dict>
 		<key>4C306DA5-C9CE-4802-B79F-A7CD3C05326D</key>
 		<dict>
@@ -2468,9 +2732,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Set $trigger to "config"</string>
 			<key>xpos</key>
-			<real>870.0</real>
+			<integer>870</integer>
 			<key>ypos</key>
-			<real>560.0</real>
+			<integer>560</integer>
 		</dict>
 		<key>4DF57E98-9CEE-4F2D-8677-DA8E3D8CE1B9</key>
 		<dict>
@@ -2479,36 +2743,36 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = back</string>
 			<key>xpos</key>
-			<real>2290.0</real>
+			<integer>2290</integer>
 			<key>ypos</key>
-			<real>80.0</real>
+			<integer>80</integer>
 		</dict>
 		<key>57D9898D-C7A0-469C-936B-E0290191225A</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>9</integer>
 			<key>xpos</key>
-			<real>2270.0</real>
+			<integer>2270</integer>
 			<key>ypos</key>
-			<real>1230.0</real>
+			<integer>1230</integer>
 		</dict>
 		<key>598AD703-A0E9-46F0-9269-B4D4CEE29E4E</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>3</integer>
 			<key>xpos</key>
-			<real>1700.0</real>
+			<integer>1700</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>5E31BCBA-28F3-4A4A-BC1C-61F9F60F6521</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>1</integer>
 			<key>xpos</key>
-			<real>480.0</real>
+			<integer>480</integer>
 			<key>ypos</key>
-			<real>80.0</real>
+			<integer>80</integer>
 		</dict>
 		<key>66BB6EC0-265E-4221-8770-579C8267FA49</key>
 		<dict>
@@ -2517,9 +2781,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = reveal</string>
 			<key>xpos</key>
-			<real>1740.0</real>
+			<integer>1740</integer>
 			<key>ypos</key>
-			<real>390.0</real>
+			<integer>390</integer>
 		</dict>
 		<key>6D491305-65B8-4277-A438-B5B2DBFDB1D5</key>
 		<dict>
@@ -2528,9 +2792,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>View user searches</string>
 			<key>xpos</key>
-			<real>1150.0</real>
+			<integer>1150</integer>
 			<key>ypos</key>
-			<real>360.0</real>
+			<integer>360</integer>
 		</dict>
 		<key>6E13EB0E-2BDA-47F9-9C31-7E88FAAC8168</key>
 		<dict>
@@ -2539,9 +2803,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = engines</string>
 			<key>xpos</key>
-			<real>740.0</real>
+			<integer>740</integer>
 			<key>ypos</key>
-			<real>80.0</real>
+			<integer>80</integer>
 		</dict>
 		<key>7089A306-0D83-48B7-BCFB-501B580D2ACD</key>
 		<dict>
@@ -2550,9 +2814,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Get keyword for new search</string>
 			<key>xpos</key>
-			<real>1530.0</real>
+			<integer>1530</integer>
 			<key>ypos</key>
-			<real>1230.0</real>
+			<integer>1230</integer>
 		</dict>
 		<key>7136B89E-ACE6-4E44-8FE2-2F62595AF6B5</key>
 		<dict>
@@ -2561,18 +2825,18 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action != back</string>
 			<key>xpos</key>
-			<real>1570.0</real>
+			<integer>1570</integer>
 			<key>ypos</key>
-			<real>80.0</real>
+			<integer>80</integer>
 		</dict>
 		<key>77C51F8E-96BD-4F45-8043-1D4FFD234301</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>12</integer>
 			<key>xpos</key>
-			<real>970.0</real>
+			<integer>970</integer>
 			<key>ypos</key>
-			<real>530.0</real>
+			<integer>530</integer>
 		</dict>
 		<key>7C7B9AD8-1B2B-41B8-8E0E-71BCDBE603B3</key>
 		<dict>
@@ -2581,18 +2845,18 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Set $trigger to "user"</string>
 			<key>xpos</key>
-			<real>2080.0</real>
+			<integer>2080</integer>
 			<key>ypos</key>
-			<real>560.0</real>
+			<integer>560</integer>
 		</dict>
 		<key>855B996F-95CD-4E83-98E4-B5A10CFF7575</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>7</integer>
 			<key>xpos</key>
-			<real>970.0</real>
+			<integer>970</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>86D2665A-CF39-4039-9969-45A403FF2232</key>
 		<dict>
@@ -2601,9 +2865,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>{query} not empty</string>
 			<key>xpos</key>
-			<real>2170.0</real>
+			<integer>2170</integer>
 			<key>ypos</key>
-			<real>1260.0</real>
+			<integer>1260</integer>
 		</dict>
 		<key>875184F4-3ABF-462E-B1FD-A6D84DA9BA25</key>
 		<dict>
@@ -2612,9 +2876,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Toggle SHOW_QUERY_IN_RESULTS on/off</string>
 			<key>xpos</key>
-			<real>970.0</real>
+			<integer>970</integer>
 			<key>ypos</key>
-			<real>710.0</real>
+			<integer>710</integer>
 		</dict>
 		<key>899A0D23-247F-478C-A05A-D63133E9E5F6</key>
 		<dict>
@@ -2623,27 +2887,27 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Open configuration</string>
 			<key>xpos</key>
-			<real>1530.0</real>
+			<integer>1530</integer>
 			<key>ypos</key>
-			<real>670.0</real>
+			<integer>670</integer>
 		</dict>
 		<key>8A8E3E3C-8B3B-4739-ACD1-6B8D2668EF02</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>7</integer>
 			<key>xpos</key>
-			<real>1330.0</real>
+			<integer>1330</integer>
 			<key>ypos</key>
-			<real>710.0</real>
+			<integer>710</integer>
 		</dict>
 		<key>8F9D1F3B-C00B-4030-B2BA-84133FE9492F</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>7</integer>
 			<key>xpos</key>
-			<real>1330.0</real>
+			<integer>1330</integer>
 			<key>ypos</key>
-			<real>880.0</real>
+			<integer>880</integer>
 		</dict>
 		<key>92801112-CB8D-4647-BC77-C8BEEB551112</key>
 		<dict>
@@ -2652,18 +2916,18 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Set $keyword</string>
 			<key>xpos</key>
-			<real>1720.0</real>
+			<integer>1720</integer>
 			<key>ypos</key>
-			<real>1260.0</real>
+			<integer>1260</integer>
 		</dict>
 		<key>92B38613-CD0E-404E-8D4F-61D0A656F227</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>12</integer>
 			<key>xpos</key>
-			<real>1530.0</real>
+			<integer>1530</integer>
 			<key>ypos</key>
-			<real>530.0</real>
+			<integer>530</integer>
 		</dict>
 		<key>96E873B9-B127-461A-B4D9-664BFA1ACF1B</key>
 		<dict>
@@ -2672,9 +2936,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action == toggle-alfred-sorts</string>
 			<key>xpos</key>
-			<real>740.0</real>
+			<integer>740</integer>
 			<key>ypos</key>
-			<real>910.0</real>
+			<integer>910</integer>
 		</dict>
 		<key>9C43C005-06FE-404B-8F7E-779891643DDA</key>
 		<dict>
@@ -2683,9 +2947,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Import a search from a URL</string>
 			<key>xpos</key>
-			<real>1150.0</real>
+			<integer>1150</integer>
 			<key>ypos</key>
-			<real>1060.0</real>
+			<integer>1060</integer>
 		</dict>
 		<key>9D22C791-2308-470B-B135-E2E03B69DB73</key>
 		<dict>
@@ -2694,9 +2958,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = help</string>
 			<key>xpos</key>
-			<real>740.0</real>
+			<integer>740</integer>
 			<key>ypos</key>
-			<real>240.0</real>
+			<integer>240</integer>
 		</dict>
 		<key>9ECB0004-87EB-414C-82EE-893D719D6D00</key>
 		<dict>
@@ -2705,18 +2969,18 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>View search engines</string>
 			<key>xpos</key>
-			<real>1150.0</real>
+			<integer>1150</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>A101898C-B574-4AFA-B342-8D5ED69E07FE</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>7</integer>
 			<key>xpos</key>
-			<real>1330.0</real>
+			<integer>1330</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>A40730EC-9C68-4E03-BAF2-DE1BF6AADA18</key>
 		<dict>
@@ -2725,9 +2989,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Rewrite info.plist</string>
 			<key>xpos</key>
-			<real>2190.0</real>
+			<integer>2190</integer>
 			<key>ypos</key>
-			<real>530.0</real>
+			<integer>530</integer>
 		</dict>
 		<key>AAF2D693-4ED6-48EA-85F1-F414CB079E8F</key>
 		<dict>
@@ -2736,9 +3000,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Toggle ALFRED_SORTS_RESULTS on/off</string>
 			<key>xpos</key>
-			<real>970.0</real>
+			<integer>970</integer>
 			<key>ypos</key>
-			<real>880.0</real>
+			<integer>880</integer>
 		</dict>
 		<key>AB93844D-D4B4-4B12-AF81-D39A87D70DBD</key>
 		<dict>
@@ -2747,9 +3011,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Open help in browser</string>
 			<key>xpos</key>
-			<real>1150.0</real>
+			<integer>1150</integer>
 			<key>ypos</key>
-			<real>210.0</real>
+			<integer>210</integer>
 		</dict>
 		<key>AEE3BBA9-87D3-42ED-AF69-43175A362FAE</key>
 		<dict>
@@ -2758,18 +3022,18 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = new</string>
 			<key>xpos</key>
-			<real>2290.0</real>
+			<integer>2290</integer>
 			<key>ypos</key>
-			<real>230.0</real>
+			<integer>230</integer>
 		</dict>
 		<key>B1B7F733-EFC9-4CE1-88E7-08A110720EE0</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>6</integer>
 			<key>xpos</key>
-			<real>970.0</real>
+			<integer>970</integer>
 			<key>ypos</key>
-			<real>210.0</real>
+			<integer>210</integer>
 		</dict>
 		<key>B3E0930C-ADA8-418F-B389-3A0261E05706</key>
 		<dict>
@@ -2778,9 +3042,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Open list of engines</string>
 			<key>xpos</key>
-			<real>2480.0</real>
+			<integer>2480</integer>
 			<key>ypos</key>
-			<real>1290.0</real>
+			<integer>1290</integer>
 		</dict>
 		<key>BB94D851-58EE-4CD6-9931-AB2FB9449D29</key>
 		<dict>
@@ -2789,9 +3053,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Trash search config file</string>
 			<key>xpos</key>
-			<real>1890.0</real>
+			<integer>1890</integer>
 			<key>ypos</key>
-			<real>530.0</real>
+			<integer>530</integer>
 		</dict>
 		<key>BF5248AB-58DE-4120-AD10-35231A6B2FB9</key>
 		<dict>
@@ -2800,9 +3064,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = import</string>
 			<key>xpos</key>
-			<real>740.0</real>
+			<integer>740</integer>
 			<key>ypos</key>
-			<real>1090.0</real>
+			<integer>1090</integer>
 		</dict>
 		<key>C111A296-A718-41CF-AFC0-55C030A3D9FE</key>
 		<dict>
@@ -2811,9 +3075,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action == toggle-show-query</string>
 			<key>xpos</key>
-			<real>740.0</real>
+			<integer>740</integer>
 			<key>ypos</key>
-			<real>740.0</real>
+			<integer>740</integer>
 		</dict>
 		<key>C1B3B49D-8DF2-47D1-98B0-4A263533C5FF</key>
 		<dict>
@@ -2822,9 +3086,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Open user searches</string>
 			<key>xpos</key>
-			<real>2310.0</real>
+			<integer>2310</integer>
 			<key>ypos</key>
-			<real>370.0</real>
+			<integer>370</integer>
 		</dict>
 		<key>C2AF821C-7119-4638-AC0C-360EF570DEC5</key>
 		<dict>
@@ -2833,18 +3097,18 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>action = reload</string>
 			<key>xpos</key>
-			<real>740.0</real>
+			<integer>740</integer>
 			<key>ypos</key>
-			<real>560.0</real>
+			<integer>560</integer>
 		</dict>
 		<key>C8075C84-9F68-4030-AB50-226032984DFE</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>2</integer>
 			<key>xpos</key>
-			<real>1330.0</real>
+			<integer>1330</integer>
 			<key>ypos</key>
-			<real>1060.0</real>
+			<integer>1060</integer>
 		</dict>
 		<key>CEE08850-50A0-45E9-B9EA-C6E78E1335AE</key>
 		<dict>
@@ -2853,18 +3117,18 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Open configuration</string>
 			<key>xpos</key>
-			<real>1700.0</real>
+			<integer>1700</integer>
 			<key>ypos</key>
-			<real>210.0</real>
+			<integer>210</integer>
 		</dict>
 		<key>DA65DE7D-1536-46BB-B4AA-F6E58057C5AD</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>3</integer>
 			<key>xpos</key>
-			<real>2050.0</real>
+			<integer>2050</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>DBCEA37B-DE26-4457-8873-6D7B1BC715A3</key>
 		<dict>
@@ -2873,9 +3137,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>Set filepath from search UID</string>
 			<key>xpos</key>
-			<real>1530.0</real>
+			<integer>1530</integer>
 			<key>ypos</key>
-			<real>360.0</real>
+			<integer>360</integer>
 		</dict>
 		<key>DE3BED0F-7CD8-43E5-9024-F3C3AC7FD4CC</key>
 		<dict>
@@ -2884,18 +3148,18 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>View configuration</string>
 			<key>xpos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>E56FFAA5-8274-4461-AA14-4AC2AECCF9A3</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>10</integer>
 			<key>xpos</key>
-			<real>1320.0</real>
+			<integer>1320</integer>
 			<key>ypos</key>
-			<real>360.0</real>
+			<integer>360</integer>
 		</dict>
 		<key>F10C6E94-3BE0-4FCD-A2DE-59D9A205B65A</key>
 		<dict>
@@ -2904,9 +3168,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>View engine variants</string>
 			<key>xpos</key>
-			<real>1870.0</real>
+			<integer>1870</integer>
 			<key>ypos</key>
-			<real>50.0</real>
+			<integer>50</integer>
 		</dict>
 		<key>FA7B1E87-ED24-49A2-8689-6567B272DE0E</key>
 		<dict>
@@ -2915,9 +3179,9 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>$keyword = ""</string>
 			<key>xpos</key>
-			<real>1370.0</real>
+			<integer>1370</integer>
 			<key>ypos</key>
-			<real>1260.0</real>
+			<integer>1260</integer>
 		</dict>
 		<key>FCF6D1C2-1401-4D08-98A6-7AEF3E5571CB</key>
 		<dict>
@@ -2926,31 +3190,74 @@ Search suggestions from multiple search engines in different locales</string>
 			<key>note</key>
 			<string>{query} empty</string>
 			<key>xpos</key>
-			<real>2170.0</real>
+			<integer>2170</integer>
 			<key>ypos</key>
-			<real>1390.0</real>
+			<integer>1390</integer>
 		</dict>
 		<key>FF24EBA1-84CD-4DAB-BBD5-E4AB11A9F57A</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>6</integer>
 			<key>xpos</key>
-			<real>1330.0</real>
+			<integer>1330</integer>
 			<key>ypos</key>
-			<real>210.0</real>
+			<integer>210</integer>
 		</dict>
-		<key>amazon-com</key>
+		<key>google-de</key>
 		<dict>
 			<key>note</key>
-			<string>Amazon United States</string>
+			<string>Google (Deutsch)</string>
 			<key>xpos</key>
 			<integer>270</integer>
 			<key>ypos</key>
 			<integer>220</integer>
 		</dict>
+		<key>google-en</key>
+		<dict>
+			<key>note</key>
+			<string>Google (English)</string>
+			<key>xpos</key>
+			<integer>270</integer>
+			<key>ypos</key>
+			<integer>390</integer>
+		</dict>
+		<key>wikipedia-de</key>
+		<dict>
+			<key>note</key>
+			<string>Wikipedia (Deutsch)</string>
+			<key>xpos</key>
+			<integer>270</integer>
+			<key>ypos</key>
+			<integer>560</integer>
+		</dict>
+		<key>wikipedia-en</key>
+		<dict>
+			<key>note</key>
+			<string>Wikipedia (English)</string>
+			<key>xpos</key>
+			<integer>270</integer>
+			<key>ypos</key>
+			<integer>730</integer>
+		</dict>
+		<key>youtube-de</key>
+		<dict>
+			<key>note</key>
+			<string>YouTube (Germany)</string>
+			<key>xpos</key>
+			<integer>270</integer>
+			<key>ypos</key>
+			<integer>900</integer>
+		</dict>
+		<key>youtube-us</key>
+		<dict>
+			<key>note</key>
+			<string>YouTube (United States)</string>
+			<key>xpos</key>
+			<integer>270</integer>
+			<key>ypos</key>
+			<integer>1070</integer>
+		</dict>
 	</dict>
-	<key>userconfigurationconfig</key>
-	<array/>
 	<key>variables</key>
 	<dict>
 		<key>ALFRED_SORTS_RESULTS</key>
@@ -2962,12 +3269,12 @@ Search suggestions from multiple search engines in different locales</string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>
+		<string>SHOW_QUERY_IN_RESULTS</string>
 		<string>ALFRED_SORTS_RESULTS</string>
 		<string>GOOGLE_PLACES_API_KEY</string>
-		<string>SHOW_QUERY_IN_RESULTS</string>
 	</array>
 	<key>version</key>
-	<string>2.1</string>
+	<string>2.0.1</string>
 	<key>webaddress</key>
 	<string></string>
 </dict>

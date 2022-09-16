@@ -13,7 +13,7 @@
 from __future__ import print_function, absolute_import
 
 import re
-from urlparse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse
 from xml.etree import ElementTree as ET
 
 from bs4 import BeautifulSoup as BS
@@ -159,17 +159,21 @@ def parse(url):
     r = web.get(url)
     r.raise_for_status()
     s = r.text
-
+    
     if not _is_xml(s):  # find URL of OpenSearch definition
+        
         defurl, iconurl = _parse_html(s, url)
+        
         if not defurl:
             log.error('[opensearch] no OpenSearch link found')
             raise NotFound(url)
-
+        
         r = web.get(defurl)
+        log.info("+++++++++++++ checkpoint2 %s",r.text)
         r.raise_for_status()
         s = r.text
-
+        
+    
     # Parse OpenSearch definition
     search = _parse_definition(s)
     search.validate()

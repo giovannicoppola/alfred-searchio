@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding: utf-8
 #
 # Copyright (c) 2016 Dean Jackson <deanishe@deanishe.net>
@@ -70,7 +70,7 @@ def cli(wf):
 
     for fn in ('backups', 'engines', 'icons', 'searches'):
         try:
-            os.makedirs(wf.datafile(fn), 0700)
+            os.makedirs(wf.datafile(fn), 0o700)
         except Exception as err:
             if err.errno != 17:  # ignore file exists
                 raise err

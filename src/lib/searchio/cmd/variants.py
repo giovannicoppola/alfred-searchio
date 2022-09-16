@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding: utf-8
 #
 # Copyright (c) 2016 Dean Jackson <deanishe@deanishe.net>
@@ -89,7 +89,7 @@ def run(wf, argv):
             icon=ICON_BACK)
         it.setvar('action', 'back')
 
-        variants.sort()
+        #variants.sort()
 
     # ---------------------------------------------------------
     # Show results

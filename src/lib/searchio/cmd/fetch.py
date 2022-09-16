@@ -42,9 +42,11 @@ def import_search(wf, url):
     """Fetch a search from URL."""
     log.info('[fetch] importing "%s" ...', url)
     error = search = None
+    
 
     wf.cache_data('import-status', u'Fetching {}…'.format(url), session=True)
     try:
+        
         search = opensearch.parse(url)
     except opensearch.NoAutoSuggest:
         error = 'Autosuggest is not supported'
@@ -53,6 +55,7 @@ def import_search(wf, url):
     except opensearch.NotFound:
         error = "Site doesn't support OpenSearch"
     except Exception as err:
+        
         error = str(err)
 
     if error:
