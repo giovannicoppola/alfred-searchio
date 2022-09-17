@@ -20,7 +20,7 @@ import re
 import socket
 import string
 import unicodedata
-import urllib
+#import urllib
 import urllib.parse as urlparse
 import urllib.request as request3
 import zlib

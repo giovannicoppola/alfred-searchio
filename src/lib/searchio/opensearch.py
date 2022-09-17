@@ -156,9 +156,12 @@ def parse(url):
     defurl = iconurl = None
 
     # Fetch and parse URL
+    
     r = web.get(url)
+    
     r.raise_for_status()
     s = r.text
+    
     
     if not _is_xml(s):  # find URL of OpenSearch definition
         
@@ -168,8 +171,9 @@ def parse(url):
             log.error('[opensearch] no OpenSearch link found')
             raise NotFound(url)
         
+        
         r = web.get(defurl)
-        log.info("+++++++++++++ checkpoint2 %s",r.text)
+        
         r.raise_for_status()
         s = r.text
         
