@@ -1,5 +1,5 @@
 Searchio! workflow for Alfred
-=============================
+==============================
 
 Auto-suggest search results from multiple search engines and languages.
 
