@@ -46,7 +46,7 @@ Supports the following search engines/websites:
 Download and installation
 -------------------------
 
-Download the latest version from the [GitHub releases page](https://github.com/deanishe/alfred-searchio/releases/latest).
+Download the latest version from the [GitHub releases page](https://github.com/giovannicoppola/alfred-searchio/releases/latest).
 
 
 <a name="usage"></a>
