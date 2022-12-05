@@ -2,13 +2,13 @@ Searchio! workflow for Alfred
 =============================
 
 Auto-suggest search results from multiple search engines and languages.
+Original from [@deanishe](https://github.com/deanishe/alfred-searchio)
 
 ![Searchio! Demo][demo]
 
 
 Contents
 --------
-
 <!-- MarkdownTOC autolink="true" bracket="round" depth="3" autoanchor="true" -->
 
 - [Download and installation](#download-and-installation)
@@ -56,11 +56,8 @@ Usage
 There are several example searches pre-configured:
 
 - `g` — Search Google in English
-- `gd` — Search Google in German
 - `w` — Search the English Wikipedia
-- `wd` — Search the German Wikipedia
 - `yt` — Search the United States version of YouTube
-- `ytd` — Search the German version of YouTube
 
 
 <a name="configuration"></a>
