@@ -1,6 +1,18 @@
 Searchio! workflow for Alfred
 =============================
 
+
+<a href="https://github.com/giovannicoppola/alfred-searchio/releases/latest/">
+<img alt="Downloads"
+src="https://img.shields.io/github/downloads/giovannicoppola/alfred-searchio/total?color=purple&label=Downloads"><br/>
+</a>
+
+<a href="https://github.com/deanishe/alfred-searchio/releases/latest/">
+<img alt="Downloads"
+src="https://img.shields.io/github/downloads/deanishe/alfred-searchio/total?color=purple&label=Downloads"><br/>
+</a>
+
+
 Auto-suggest search results from multiple search engines and languages.
 Original from [@deanishe](https://github.com/deanishe/alfred-searchio)
 
