@@ -13,6 +13,7 @@ import (
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
@@ -41,6 +42,111 @@ var (
 	wf          *aw.Workflow
 )
 
+// installDefaultSearchesIfNeeded installs default search configurations if the searches directory is empty
+func installDefaultSearchesIfNeeded() {
+	// Check if searches directory exists and is empty
+	if _, err := os.Stat(searchesDir); os.IsNotExist(err) {
+		// Create searches directory
+		if err := os.MkdirAll(searchesDir, 0755); err != nil {
+			log.Printf("Failed to create searches directory: %v", err)
+			return
+		}
+	}
+
+	// Check if directory is empty
+	files, err := ioutil.ReadDir(searchesDir)
+	if err != nil {
+		log.Printf("Failed to read searches directory: %v", err)
+		return
+	}
+
+	// If directory is not empty, don't install defaults
+	if len(files) > 0 {
+		return
+	}
+
+	// Install default searches
+	defaultSearches := []string{"google-en", "wikipedia-en", "youtube-us"}
+	workflowDir := wf.Dir()
+
+	for _, searchID := range defaultSearches {
+		srcPath := filepath.Join(workflowDir, "default_searches", searchID+".json")
+		dstPath := filepath.Join(searchesDir, searchID+".json")
+
+		// Copy default search file
+		if err := copyFile(srcPath, dstPath); err != nil {
+			log.Printf("Failed to install default search %s: %v", searchID, err)
+			continue
+		}
+		log.Printf("Installed default search: %s", searchID)
+	}
+
+	// Icon paths are now set directly in Script Filter config, no symlinks needed
+	// createIconSymlinks()
+}
+
+// createIconSymlinks creates symlinks for Script Filter icons
+func createIconSymlinks() {
+	workflowDir := wf.Dir()
+	log.Printf("Creating icon symlinks in workflow directory: %s", workflowDir)
+
+	// Define icon mappings for default searches
+	iconMappings := map[string]string{
+		"google-en":    "icons/engines/google.png",
+		"wikipedia-en": "icons/engines/wikipedia.png",
+		"youtube-us":   "icons/engines/youtube.png",
+	}
+
+	for searchID, iconPath := range iconMappings {
+		// Check if source icon exists
+		srcPath := filepath.Join(workflowDir, iconPath)
+		if _, err := os.Stat(srcPath); os.IsNotExist(err) {
+			log.Printf("Warning: Source icon does not exist: %s", srcPath)
+			continue
+		}
+
+		// Remove existing symlink if it exists
+		symlinkPath := filepath.Join(workflowDir, searchID+".png")
+		if _, err := os.Lstat(symlinkPath); err == nil {
+			if err := os.Remove(symlinkPath); err != nil {
+				log.Printf("Failed to remove existing symlink %s: %v", symlinkPath, err)
+			}
+		}
+
+		// Create symlink
+		if err := os.Symlink(iconPath, symlinkPath); err != nil {
+			log.Printf("Failed to create icon symlink for %s: %v", searchID, err)
+			continue
+		}
+		log.Printf("Successfully created icon symlink: %s.png -> %s", searchID, iconPath)
+
+		// Verify the symlink was created
+		if _, err := os.Lstat(symlinkPath); err != nil {
+			log.Printf("Warning: Symlink verification failed for %s: %v", symlinkPath, err)
+		} else {
+			log.Printf("Verified symlink exists: %s", symlinkPath)
+		}
+	}
+}
+
+// copyFile copies a file from src to dst
+func copyFile(src, dst string) error {
+	sourceFile, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer sourceFile.Close()
+
+	destFile, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer destFile.Close()
+
+	_, err = io.Copy(destFile, sourceFile)
+	return err
+}
+
 func init() {
 	wf = aw.New()
 	queryInResults = wf.Config.GetBool("SHOW_QUERY_IN_RESULTS")
@@ -50,6 +156,9 @@ func init() {
 	if !alfredSortsResults {
 		wf.Configure(aw.SuppressUIDs(true))
 	}
+
+	// Install default searches if searches directory is empty
+	installDefaultSearchesIfNeeded()
 }
 
 // GetenvBool returns a boolean based on an environment/workflow variable.
@@ -178,6 +287,10 @@ func searchServer(s *Search, q string) ([]string, error) {
 
 	// Append + as we want to extract a value, not a path
 	jp := s.Jsonpath
+	if jp == "" {
+		// If no JSON path is specified, return empty suggestions
+		return []string{}, nil
+	}
 	if jp[len(jp)-1] != '+' {
 		jp += "+"
 	}
@@ -235,7 +348,7 @@ func doSearch(s *Search, q string) error {
 		icon = &aw.Icon{Value: s.Icon}
 	)
 	for _, word := range words {
-		if strings.ToLower(word) == strings.ToLower(q) && queryInResults {
+		if strings.ToLower(word) == strings.ToLower(q) && !queryInResults {
 			continue
 		}
 		URL := s.SearchURLForQuery(word)

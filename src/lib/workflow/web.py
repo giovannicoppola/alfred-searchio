@@ -443,16 +443,24 @@ class Response(object):
         if not self.stream:  # Try sniffing response content
             # Encoding declared in document should override HTTP headers
             if self.mimetype == 'text/html':  # sniff HTML headers
+                # Ensure content is a string, not bytes
+                content_str = self.content
+                if isinstance(content_str, bytes):
+                    content_str = content_str.decode('utf-8', errors='ignore')
                 m = re.search(r"""<meta.+charset=["']{0,1}(.+?)["'].*>""",
-                              self.content)
+                              content_str)
                 if m:
                     encoding = m.group(1)
 
             elif ((self.mimetype.startswith('application/')
                    or self.mimetype.startswith('text/'))
                   and 'xml' in self.mimetype):
+                # Ensure content is a string, not bytes
+                content_str = self.content
+                if isinstance(content_str, bytes):
+                    content_str = content_str.decode('utf-8', errors='ignore')
                 m = re.search(r"""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
-                              self.content)
+                              content_str)
                 if m:
                     encoding = m.group(1)
 

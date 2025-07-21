@@ -82,6 +82,10 @@ def _parse_html(s, baseurl):
     defurl = iconurl = None
     matchsize = re.compile(r'(\d+)x.*').match
 
+    # Ensure s is a string, not bytes
+    if isinstance(s, bytes):
+        s = s.decode('utf-8', errors='ignore')
+    
     soup = BS(s, 'html.parser')
     link = soup.find('link', type='application/opensearchdescription+xml')
     if not link:
@@ -93,8 +97,11 @@ def _parse_html(s, baseurl):
     # Find icon
     icons = []
     for elem in soup.find_all('link', rel='apple-touch-icon'):
-        size = elem.get('sizes') or '0x0'
-        m = matchsize(size)
+        size_attr = elem.get('sizes') or '0x0'
+        # Ensure size_attr is a string, not bytes
+        if isinstance(size_attr, bytes):
+            size_attr = size_attr.decode('utf-8', errors='ignore')
+        m = matchsize(size_attr)
         if m:
             size = int(m.group(1))
         else:
@@ -113,7 +120,16 @@ def _parse_html(s, baseurl):
 def _parse_definition(s):
     """Parse an OpenSearch definition."""
     search = OpenSearch()
-    root = ET.fromstring(s.encode('utf-8'))
+    
+    # Ensure s is a string, not bytes
+    if isinstance(s, bytes):
+        s = s.decode('utf-8', errors='ignore')
+    
+    try:
+        root = ET.fromstring(s)
+    except ET.ParseError as e:
+        log.error('[opensearch] XML parsing error: %s', e)
+        raise Invalid('Invalid XML content')
 
     def tag2attrib(tag, attrib):
         elem = root.find(tag, NS)
@@ -141,6 +157,9 @@ def _parse_definition(s):
 
 def _is_xml(s):
     """Return ``True`` if string is an XML document."""
+    # Ensure s is a string, not bytes
+    if isinstance(s, bytes):
+        s = s.decode('utf-8', errors='ignore')
     return s.lower().strip().startswith('<?xml ')
 
 
@@ -162,6 +181,10 @@ def parse(url):
     r.raise_for_status()
     s = r.text
     
+    # Ensure s is a string, not bytes
+    if isinstance(s, bytes):
+        s = s.decode('utf-8', errors='ignore')
+    
     
     if not _is_xml(s):  # find URL of OpenSearch definition
         
@@ -176,6 +199,10 @@ def parse(url):
         
         r.raise_for_status()
         s = r.text
+        
+        # Ensure s is a string, not bytes
+        if isinstance(s, bytes):
+            s = s.decode('utf-8', errors='ignore')
         
     
     # Parse OpenSearch definition

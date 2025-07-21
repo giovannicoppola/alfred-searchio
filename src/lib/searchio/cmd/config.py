@@ -49,7 +49,7 @@ def run(wf, argv):
     ctx = Context(wf)
     ICON_ACTIVE = ctx.icon('searches-active')
     ICON_UPDATE_AVAILABLE = ctx.icon('update-available')
-    ICON_UPDATE_NONE = ctx.icon('update-check')
+
     ICON_HELP = ctx.icon('help')
     ICON_IMPORT = ctx.icon('import')
     ICON_RELOAD = ctx.icon('reload')
@@ -141,14 +141,7 @@ def run(wf, argv):
         icon=ICON_HELP,
     ))
 
-    if not wf.update_available:
-        items.append(dict(
-            title=u'Workflow up to Date',
-            subtitle=u'Action to check for a newer version now',
-            autocomplete=u'workflow:update',
-            valid=False,
-            icon=ICON_UPDATE_NONE,
-        ))
+
 
     # ---------------------------------------------------------
     # Show results

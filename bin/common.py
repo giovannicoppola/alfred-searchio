@@ -16,7 +16,10 @@ from collections import namedtuple
 import os
 import re
 import sys
-from urllib import urlopen
+try:
+    from urllib import urlopen
+except ImportError:
+    from urllib.request import urlopen
 from uuid import uuid4
 
 

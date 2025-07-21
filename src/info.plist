@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>net.deanishe.alfred-searchio</string>
+	<string>net.giovanni.alfred-searchio</string>
 	<key>category</key>
 	<string>Internet</string>
 	<key>connections</key>
@@ -736,19 +736,6 @@
 				<false/>
 			</dict>
 		</array>
-		<key>amazon-com</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>google-en</key>
 		<array>
 			<dict>
@@ -790,7 +777,7 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>Dean Jackson</string>
+	<string>Giovanni after Dean Jackson</string>
 	<key>description</key>
 	<string>Search via DuckDuckGo/Google/Bing/Wikipedia/Wiktionary/Ask</string>
 	<key>disabled</key>
@@ -1203,55 +1190,6 @@
 			<string>B1B7F733-EFC9-4CE1-88E7-08A110720EE0</string>
 			<key>version</key>
 			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>ada</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string>Fetching results…</string>
-				<key>script</key>
-				<string>./search amazon-com "$1"</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Searchio!</string>
-				<key>title</key>
-				<string>Amazon United States</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>amazon-com</string>
-			<key>version</key>
-			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -3157,15 +3095,6 @@ There are several example searches pre-configured:
 			<key>ypos</key>
 			<real>210</real>
 		</dict>
-		<key>amazon-com</key>
-		<dict>
-			<key>note</key>
-			<string>Amazon United States</string>
-			<key>xpos</key>
-			<real>270</real>
-			<key>ypos</key>
-			<real>220</real>
-		</dict>
 		<key>google-en</key>
 		<dict>
 			<key>note</key>
@@ -3221,20 +3150,18 @@ There are several example searches pre-configured:
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>1</string>
-				<key>placeholder</key>
-				<string></string>
+				<true/>
 				<key>required</key>
 				<false/>
-				<key>trim</key>
-				<true/>
+				<key>text</key>
+				<string></string>
 			</dict>
 			<key>description</key>
-			<string>Set to `1` or `yes` to enable Alfred's knowledge. Set to `0` or `no` to always show results in the order returned by the API.</string>
+			<string>Check to enable Alfred's knowledge. Uncheck to always show results in the order returned by the API.</string>
 			<key>label</key>
-			<string>ALFRED_SORTS_RESULTS</string>
+			<string>Alfred sorts results?</string>
 			<key>type</key>
-			<string>textfield</string>
+			<string>checkbox</string>
 			<key>variable</key>
 			<string>ALFRED_SORTS_RESULTS</string>
 		</dict>
@@ -3263,20 +3190,18 @@ There are several example searches pre-configured:
 			<key>config</key>
 			<dict>
 				<key>default</key>
-				<string>1</string>
-				<key>placeholder</key>
-				<string></string>
+				<true/>
 				<key>required</key>
 				<false/>
-				<key>trim</key>
-				<true/>
+				<key>text</key>
+				<string></string>
 			</dict>
 			<key>description</key>
-			<string>Set to `1` or `yes` to always append the entered query to the end of the results (so you can hit `↑` to select it). If unset (or set to `0` or `no`), the query will only be shown if there are no other results.</string>
+			<string>Check to always show entered query in the results. If unchecked, the query will only be shown if there are no other results.</string>
 			<key>label</key>
-			<string>SHOW_QUERY_IN_RESULTS</string>
+			<string>Show query in results?</string>
 			<key>type</key>
-			<string>textfield</string>
+			<string>checkbox</string>
 			<key>variable</key>
 			<string>SHOW_QUERY_IN_RESULTS</string>
 		</dict>
@@ -3284,7 +3209,7 @@ There are several example searches pre-configured:
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>2.2</string>
+	<string>3.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/giovannicoppola/alfred-searchio</string>
 </dict>

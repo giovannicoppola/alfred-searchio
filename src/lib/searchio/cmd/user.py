@@ -53,8 +53,22 @@ def run(wf, argv):
     ICON_BACK = ctx.icon('back')
     # log.debug('args=%r', args)
 
+    # Load both default and user searches
+    searches = []
+    
+    # First, load default searches
+    from .reload import DEFAULTS
+    for default_data in DEFAULTS:
+        searches.append(Search.from_dict(default_data))
+    
+    # Then, load user searches (these will override defaults if same UID)
     f = util.FileFinder([ctx.searches_dir], ['json'])
-    searches = [Search.from_file(p) for p in f]
+    user_searches = [Search.from_file(p) for p in f]
+    
+    # Merge user searches with defaults, with user searches taking precedence
+    user_uids = {s.uid for s in user_searches}
+    searches = [s for s in searches if s.uid not in user_uids] + user_searches
+    
     searches.sort(key=attrgetter('title'))
 
     if query:

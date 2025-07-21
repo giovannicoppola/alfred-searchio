@@ -55,7 +55,8 @@ def import_search(wf, url):
     except opensearch.NotFound:
         error = "Site doesn't support OpenSearch"
     except Exception as err:
-        
+        import traceback
+        log.error('[fetch] Exception: %s\n%s', err, traceback.format_exc())
         error = str(err)
 
     if error:

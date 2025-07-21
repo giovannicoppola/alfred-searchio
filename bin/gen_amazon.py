@@ -18,7 +18,7 @@ from common import mkdata, mkvariant
 
 
 SEARCH_URL = 'https://www.amazon.{tld}/gp/search?ie=UTF8&keywords={{query}}'
-SUGGEST_URL = 'https://completion.amazon.{ctld}/search/complete?mkt={market}&method=completion&search-alias=aps&client=alfred-searchio&q={{query}}'
+SUGGEST_URL = 'https://completion.amazon.{ctld}/api/2017/suggestions?limit=11&suggestion-type=KEYWORD&alias=aps&mid={market}&prefix={{query}}'
 
 
 def stores():
@@ -32,43 +32,43 @@ def stores():
             'name': u'United States',
             'tld': 'com',
             'ctld': 'com',
-            'market': 1,
+            'market': 'ATVPDKIKX0DER',
         },
         {
             'name': u'United Kingdom',
             'tld': 'co.uk',
             'ctld': 'co.uk',
-            'market': 3,
+            'market': 'A1F83G8C2ARO7P',
         },
         {
             'name': u'Canada',
             'tld': 'ca',
             'ctld': 'com',
-            'market': 7,
+            'market': 'A2EUQ1WTGCTBG2',
         },
         {
             'name': u'Deutschland',
             'tld': 'de',
             'ctld': 'co.uk',
-            'market': 4,
+            'market': 'A1PA6795UKMFR9',
         },
         {
             'name': u'France',
             'tld': 'fr',
             'ctld': 'co.uk',
-            'market': 5,
+            'market': 'A13V1IB3VIYZZH',
         },
         {
             'name': u'España',
             'tld': 'es',
             'ctld': 'co.uk',
-            'market': 44551,
+            'market': 'A1AT7YVPFBWXBL',
         },
         {
             'name': u'Brasil',
             'tld': 'com.br',
             'ctld': 'com',
-            'market': 526970,
+            'market': 'A2Q3YBCTMYUVTE',
         },
     ]
     for d in data:

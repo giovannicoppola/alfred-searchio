@@ -34,6 +34,7 @@ from workflow.background import run_in_background, is_running
 
 from searchio.core import Context
 from searchio import util
+from searchio.cmd.fetch import import_search
 
 log = util.logger(__name__)
 
@@ -97,14 +98,31 @@ def clipboard_url():
     """Fetch URL from clipboard."""
     cmd = ['pbpaste', '-Prefer', 'txt']
     output = subprocess.check_output(cmd)
+    
+    # Decode the output properly, handling encoding issues
+    try:
+        # Try UTF-8 first
+        decoded_output = output.decode('utf-8')
+    except UnicodeDecodeError:
+        try:
+            # Fall back to latin-1 if UTF-8 fails
+            decoded_output = output.decode('latin-1')
+        except UnicodeDecodeError:
+            # If all else fails, use error handling
+            decoded_output = output.decode('utf-8', errors='ignore')
+    
+    # Strip whitespace and check if it looks like a URL
+    decoded_output = decoded_output.strip()
+    if not decoded_output or not (decoded_output.startswith('http://') or decoded_output.startswith('https://')):
+        return None
 
-    url = urlparse(output)
+    url = urlparse(decoded_output)
     if url.scheme not in ('http', 'https'):
         return None
 
 
 
-    return output.decode('utf-8')
+    return decoded_output
 
 
 def do_get_url(wf, args):
@@ -187,21 +205,22 @@ def do_import_search(wf, url):
             it.setvar(k, v)
 
     else:
-        progress = int(os.getenv('progress') or '0')
-        i = progress % len(ICONS_PROGRESS)
-        picon = ICONS_PROGRESS[i]
-        log.debug('progress=%d, i=%d, picon=%s', progress, i, picon)
-        wf.setvar('progress', progress + 1)
-        if not is_running('import'):
-            run_in_background('import', ['./searchio', 'fetch', url])
+        # Run import synchronously instead of background job
+        log.debug('running import synchronously for: %s', url)
+        search, error = import_search(wf, url)
+        
+        if error:
+            wf.add_item(error, icon=ICON_ERROR)
+        elif search:
+            it = wf.add_item(u'Add "{}"'.format(search['name']),
+                             u'↩ to add search',
+                             valid=True,
+                             icon=search['icon'])
 
-        status = wf.cached_data('import-status', None, max_age=0, session=True)
-        title = status or u'Fetching OpenSearch Configuration …'
-
-        wf.rerun = 0.2
-        wf.add_item(title,
-                    u'Results will be shown momentarily',
-                    icon=picon)
+            for k, v in search.items():
+                it.setvar(k, v)
+        else:
+            wf.add_item('Import failed', 'Unknown error occurred', icon=ICON_ERROR)
 
     wf.send_feedback()
 

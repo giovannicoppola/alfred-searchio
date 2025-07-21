@@ -31,6 +31,7 @@ from __future__ import print_function, absolute_import
 
 import json
 import os
+import plistlib
 
 from docopt import docopt
 from workflow.notify import notify
@@ -38,6 +39,7 @@ from workflow.notify import notify
 from searchio.core import Context
 from searchio import engines
 from searchio import util
+from searchio.cmd.reload import remove_script_filters, add_script_filters, Search, link_icons
 
 log = util.logger(__name__)
 
@@ -96,6 +98,13 @@ def run(wf, argv):
     ctx = Context(wf)
     d = parse_args(wf, args)
 
+    # Auto-generate icon path if not provided
+    if not d.get('icon'):
+        # Extract engine name from title (e.g., "Amazon United States" -> "amazon")
+        engine_name = d.get('title', '').split()[0].lower()
+        d['icon'] = f'icons/engines/{engine_name}.png'
+        log.info(f"Auto-generated icon path: {d['icon']}")
+    
     s = engines.Search.from_dict(d)
 
     if not util.valid_url(d['search_url']):
@@ -108,8 +117,67 @@ def run(wf, argv):
 
     with open(p, 'w') as fp:
         json.dump(s.dict, fp, sort_keys=True, indent=2)
-    # m.save(**d)
 
     log.debug('Adding new search to info.plist ...')
-
-    #notify('Added New Search', d['title'])
+    
+    # Update info.plist to include the new search
+    ip = wf.workflowfile('info.plist')
+    with open(ip, "rb") as file:
+        data = plistlib.load(file)
+    
+    # Get all existing searches (both user and default)
+    existing_searches = []
+    
+    # First, load default searches
+    from .reload import DEFAULTS
+    for default_data in DEFAULTS:
+        existing_searches.append(Search.from_dict(default_data))
+    
+    # Then, load user searches (these will override defaults if same UID)
+    searches_dir = wf.datadir + '/searches'
+    if os.path.exists(searches_dir):
+        for filename in os.listdir(searches_dir):
+            if filename.endswith('.json'):
+                search_id = filename[:-5]  # Remove .json extension
+                search_path = os.path.join(searches_dir, filename)
+                try:
+                    with open(search_path, 'r') as f:
+                        content = f.read().strip()
+                        if not content:  # Skip empty files
+                            log.warning(f"Skipping empty search file: {search_id}")
+                            continue
+                        search_data = json.loads(content)
+                        search_data['uid'] = search_id
+                        
+                        # Auto-generate icon path if not provided
+                        if not search_data.get('icon'):
+                            engine_name = search_data.get('title', '').split()[0].lower()
+                            search_data['icon'] = f'icons/engines/{engine_name}.png'
+                            log.info(f"Auto-generated icon path for existing search {search_id}: {search_data['icon']}")
+                        
+                        # Remove any existing search with same UID (to allow override)
+                        existing_searches = [s for s in existing_searches if s.uid != search_id]
+                        existing_searches.append(Search.from_dict(search_data))
+                except Exception as e:
+                    log.warning(f"Failed to load search {search_id}: {e}")
+                    # Remove corrupted file
+                    try:
+                        os.remove(search_path)
+                        log.info(f"Removed corrupted search file: {search_id}")
+                    except:
+                        pass
+    
+    # Add the new search to the list
+    existing_searches.append(s)
+    
+    # Update info.plist with all searches
+    remove_script_filters(wf, data)
+    add_script_filters(wf, data, existing_searches)
+    
+    with open(ip, "wb") as file:
+        plistlib.dump(data, file)
+    
+    # Create symlinks for Script Filter icons
+    link_icons(wf, existing_searches)
+    
+    log.info(f"Successfully added search: {s.title} ({s.uid})")

@@ -1258,10 +1258,21 @@ class Workflow(object):
 
     @property
     def _default_cachedir(self):
-        """Alfred 2's default cache directory."""
+        """Alfred's default cache directory."""
+        # Try current Alfred path first, then fall back to Alfred-2
+        current_path = os.path.join(
+            os.path.expanduser(
+                "~/Library/Caches/com.runningwithcrayons.Alfred/Workflow Data/"
+            ),
+            self.bundleid,
+        )
+        if os.path.exists(os.path.dirname(current_path)):
+            return current_path
+        
+        # Fall back to Alfred-2 path for older versions
         return os.path.join(
             os.path.expanduser(
-                "~/Library/Caches/com.runningwithcrayons.Alfred-2/" "Workflow Data/"
+                "~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/"
             ),
             self.bundleid,
         )
@@ -1295,7 +1306,16 @@ class Workflow(object):
 
     @property
     def _default_datadir(self):
-        """Alfred 2's default data directory."""
+        """Alfred's default data directory."""
+        # Try current Alfred path first, then fall back to Alfred 2
+        current_path = os.path.join(
+            os.path.expanduser("~/Library/Application Support/Alfred/Workflow Data/"),
+            self.bundleid,
+        )
+        if os.path.exists(os.path.dirname(current_path)):
+            return current_path
+        
+        # Fall back to Alfred 2 path for older versions
         return os.path.join(
             os.path.expanduser("~/Library/Application Support/Alfred 2/Workflow Data/"),
             self.bundleid,

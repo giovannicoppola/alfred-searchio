@@ -135,15 +135,6 @@ DEFAULTS = [
         'uid': 'google-en',
     },
     {
-        'title': 'Google (Deutsch)',
-        'icon': 'icons/engines/google.png',
-        'jsonpath': '$[1][*]',
-        'keyword': 'gd',
-        'search_url': 'https://www.google.com/search?q={query}&hl=de&safe=off',
-        'suggest_url': 'https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=de',
-        'uid': 'google-de',
-    },
-    {
         'title': 'Wikipedia (English)',
         'icon': 'icons/engines/wikipedia.png',
         'jsonpath': '$[1][*]',
@@ -154,16 +145,6 @@ DEFAULTS = [
         'uid': 'wikipedia-en',
     },
     {
-        'title': 'Wikipedia (Deutsch)',
-        'icon': 'icons/engines/wikipedia.png',
-        'jsonpath': '$[1][*]',
-        'pcencode': True,
-        'keyword': 'wd',
-        'search_url': 'https://de.wikipedia.org/wiki/{query}',
-        'suggest_url': 'https://de.wikipedia.org/w/api.php?action=opensearch&search={query}',
-        'uid': 'wikipedia-de',
-    },
-    {
         'title': 'YouTube (United States)',
         'icon': 'icons/engines/youtube.png',
         'jsonpath': '$[1][*]',
@@ -171,15 +152,6 @@ DEFAULTS = [
         'search_url': 'https://www.youtube.com/results?gl=us&persist_gl=1&search_query={query}',
         'suggest_url': 'https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&hl=us&q={query}',
         'uid': 'youtube-us',
-    },
-    {
-        'title': 'YouTube (Germany)',
-        'icon': 'icons/engines/youtube.png',
-        'jsonpath': '$[1][*]',
-        'keyword': 'ytd',
-        'search_url': 'https://www.youtube.com/results?gl=de&persist_gl=1&search_query={query}',
-        'suggest_url': 'https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&hl=de&q={query}',
-        'uid': 'youtube-de',
     },
 ]
 
@@ -224,13 +196,26 @@ def add_script_filters(wf, data, searches=None):
     if searches:  # add them to the user's searches dir
         for s in searches:
             path = os.path.join(ctx.searches_dir, s.uid + '.json')
-            with open(path, 'wb') as fp:
-                json.dump(s.dict, fp)
+            with open(path, 'w') as fp:
+                json.dump(s.dict, fp, indent=2)
             only.add(s.uid)
             log.info('Saved search "%s"', s.title)
 
+    # Load both default and user searches (like user.py does)
+    all_searches = []
+    
+    # First, load default searches
+    for default_data in DEFAULTS:
+        all_searches.append(Search.from_dict(default_data))
+    
+    # Then, load user searches (these will override defaults if same UID)
     f = util.FileFinder([ctx.searches_dir], ['json'])
-    searches = [Search.from_file(p) for p in f]
+    user_searches = [Search.from_file(p) for p in f]
+    
+    # Merge user searches with defaults, with user searches taking precedence
+    user_uids = {s.uid for s in user_searches}
+    searches = [s for s in all_searches if s.uid not in user_uids] + user_searches
+    
     if only:
         searches = [s for s in searches if s.uid in only]
 
@@ -259,6 +244,8 @@ def add_script_filters(wf, data, searches=None):
         # d['config']['script'] = './searchio search {} "$1"'.format(s.uid)
         d['config']['script'] = './search {} "$1"'.format(s.uid)
         d['config']['keyword'] = s.keyword
+        # Note: Alfred expects icon files named after the Script Filter UID
+        # We'll create symlinks in the link_icons function below
         data['objects'].append(d)
         data['connections'][s.uid] = [{
             'destinationuid': OPEN_URL_UID,
@@ -274,6 +261,7 @@ def add_script_filters(wf, data, searches=None):
         ypos += YOFFSET
         log.info('Added Script Filter "%s" (%s)', s.title, s.uid)
 
+    # Create symlinks for Script Filter icons
     link_icons(wf, searches)
 
 
