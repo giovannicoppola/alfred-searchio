@@ -1,34 +1,27 @@
-Searchio! workflow for Alfred
+# Alfred-Searchio!
+
 =============================
 
+Auto-suggest search results from multiple search engines and languages.
+Original from [@deanishe](https://github.com/deanishe/alfred-searchio)
 
 <a href="https://github.com/giovannicoppola/alfred-searchio/releases/latest/">
 <img alt="Downloads"
 src="https://img.shields.io/github/downloads/giovannicoppola/alfred-searchio/total?color=purple&label=Downloads"><br/>
 </a>
 
-<a href="https://github.com/deanishe/alfred-searchio/releases/latest/">
-<img alt="Downloads"
-src="https://img.shields.io/github/downloads/deanishe/alfred-searchio/total?color=purple&label=Downloads"><br/>
-</a>
-
-
-Auto-suggest search results from multiple search engines and languages.
-Original from [@deanishe](https://github.com/deanishe/alfred-searchio)
-
 ![Searchio! Demo][demo]
 
+## Contents
 
-Contents
---------
 <!-- MarkdownTOC autolink="true" bracket="round" depth="3" autoanchor="true" -->
 
 - [Download and installation](#download-and-installation)
 - [Usage](#usage)
-    - [Configuration](#configuration)
-        - [Workflow Configuration Sheet](#workflow-configuration-sheet)
-        - [In-Workflow Configuration](#in-workflow-configuration)
-    - [Importing Searches](#importing-searches)
+  - [Configuration](#configuration)
+    - [Workflow Configuration Sheet](#workflow-configuration-sheet)
+    - [In-Workflow Configuration](#in-workflow-configuration)
+  - [Importing Searches](#importing-searches)
 - [Adding Engines](#adding-engines)
 - [Licensing, thanks](#licensing-thanks)
 
@@ -45,25 +38,26 @@ Supports the following search engines/websites:
 - Google "I'm Feeling Lucky"
 - Google Images
 - Google Maps (requires a Google Places API key)
+- Google News
 - Naver
 - Wikia (only the top ~200 wikis, but you can [import](#importing-searches) any others)
 - Wikipedia
 - Wiktionary
 - Yandex
 - YouTube
-- **plus** it can [import a search configuration](#importing-searches) from *any* website that supports OpenSearch autosuggestions
-
+- **plus** it can [import a search configuration](#importing-searches) from _any_ website that supports OpenSearch autosuggestions
 
 <a name="download-and-installation"></a>
 Download and installation
--------------------------
+
+---
 
 Download the latest version from the [GitHub releases page](https://github.com/giovannicoppola/alfred-searchio/releases/latest).
 
-
 <a name="usage"></a>
 Usage
------
+
+---
 
 There are several example searches pre-configured:
 
@@ -71,46 +65,47 @@ There are several example searches pre-configured:
 - `w` — Search the English Wikipedia
 - `yt` — Search the United States version of YouTube
 
-
 <a name="configuration"></a>
-### Configuration ###
+
+### Configuration
 
 The workflow is configured via the `searchio` keyword and some [workflow variables](https://www.alfredapp.com/help/workflows/advanced/variables/) set in the workflow configuration sheet.
 
-
 <a name="workflow-configuration-sheet"></a>
-#### Workflow Configuration Sheet ####
 
-There are some variables in the workflow configuration screen (open the workflow in Alfred Preferences and hit the `[𝒙]` button):
+#### Workflow Configuration Sheet
 
-|           Name          |                                                                                                    Description                                                                                                    |
-|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ALFRED_SORTS_RESULTS`  | Set to `1` or `yes` to enable Alfred's knowledge. Set to `0` or `no` to always show results in the order returned by the API.                                                                                     |
+There are some variables in the workflow configuration screen:
+
+| Name                    | Description                                                                                                                                                                                                       |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ALFRED_SORTS_RESULTS`  | Check to enable Alfred's knowledge. Uncheck to always show results in the order returned by the API. |
 | `GOOGLE_PLACES_API_KEY` | You must set this to use Google Maps search. You can get an API key [here](https://developers.google.com/places/web-service/get-api-key).                                                                         |
-| `SHOW_QUERY_IN_RESULTS` | Set to `1` or `yes` to always append the entered query to the end of the results (so you can hit `↑` to select it). If unset (or set to `0` or `no`), the query will only be shown if there are no other results. |
+| `SHOW_QUERY_IN_RESULTS` |Check to always show the entered query in the results. If unchecked, the query will only be shown if there are no other results.|:w
 
 
 <a name="in-workflow-configuration"></a>
-#### In-Workflow Configuration ####
+
+#### In-Workflow Configuration
 
 - `searchio [<query>]` — Show workflow settings
-    - `Update Available …` — Shown if there is a new version of the workflow available to download. Action the item to install it.
-    - `Installed Searches …` — View and delete your configured searches
-    - `All Engines …` — View supported engines and add new searches
-    - `Import Search …` — Import a new search configuration from a URL (see [Importing Searches](#importing-searches))
-    - `Reload` — Regenerate the workflow's Script Filters from your configured searches (and clean the cache). Run this if you screw up the Script Filters or an update overwrites them.
-    - `Show Query in Results` — Turn the option to show the query you entered in the results on/off. The query is added to the end of the results, so you can hit `↑` to go straight to it. The query is always shown if there are no other results.
-    - `Alfred Sorts Results` — Turns Alfred's knowledge on/off. If on,
+  - `Update Available …` — Shown if there is a new version of the workflow available to download. Action the item to install it.
+  - `Installed Searches …` — View and delete your configured searches
+  - `All Engines …` — View supported engines and add new searches
+  - `Import Search …` — Import a new search configuration from a URL (see [Importing Searches](#importing-searches))
+  - `Reload` — Regenerate the workflow's Script Filters from your configured searches (and clean the cache). Run this if you screw up the Script Filters or an update overwrites them.
+  - `Show Query in Results` — Turn the option to show the query you entered in the results on/off. The query is added to the end of the results, so you can hit `↑` to go straight to it. The query is always shown if there are no other results.
+  - `Alfred Sorts Results` — Turns Alfred's knowledge on/off. If on,
     Alfred remembers which result you chose for which query and moves
     that result to the top. If off, results are always shown in the
     order they are returned by the API. If on, `Show Query in Results`
     cannot guarantee that the query is always the last result.
-    - `Online Help` — Open this page in your browser.
-    - `Workflow up to Date` — You have the latest version of the workflow. Action this item to force a check for a new version.
-
+  - `Online Help` — Open this page in your browser.
+  - `Workflow up to Date` — You have the latest version of the workflow. Action this item to force a check for a new version.
 
 <a name="importing-searches"></a>
-### Importing Searches ###
+
+### Importing Searches
 
 Searchio! has the ability to import a search configuration from any website that supports the OpenSearch autosuggestion API.
 
@@ -120,10 +115,10 @@ It will try to find and read the OpenSearch description at the URL and import it
 
 **NOTE**: Although many websites support OpenSearch, few support the autosuggestion API that Searchio! uses. Sites based on MediaWiki usually support the API, so you can add all your favourite Wikia wikis (the built-in Wikia engine only supports the few hundred most popular wikis).
 
-
 <a name="adding-engines"></a>
 Adding Engines
---------------
+
+---
 
 In addition to the built-in engines, you can add your own definitions in the `engines` folder in the workflow's data directory. (Enter `searchio workflow:opendata` to open the data folder in Finder.)
 
@@ -156,7 +151,8 @@ The optional `pcencode` field tells Searchio! to percent-encode the search query
 The (optional) icon for your custom engine should be placed in the `icons` directory alongside the `engines` one. It should have the same basename as the engine definition file, just with a different file extension. Supported icon extensions are `png`, `icns`, `jpg` and `jpeg`.
 
 <a name="licensing-thanks"></a>
-## Licensing, thanks ##
+
+## Licensing, thanks
 
 The code in this workflow is released under the [MIT Licence](http://opensource.org/licenses/MIT).
 

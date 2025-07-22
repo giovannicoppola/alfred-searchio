@@ -1,0 +1,76 @@
+{
+  "description": "News search", 
+  "title": "Google News", 
+  "variants": [
+    {
+      "name": "English", 
+      "search_url": "https://news.google.com/search?q={query}&hl=en&gl=US&ceid=US:en", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=en&tbm=nws", 
+      "title": "Google News (English)", 
+      "uid": "en"
+    }, 
+    {
+      "name": "Deutsch", 
+      "search_url": "https://news.google.com/search?q={query}&hl=de&gl=DE&ceid=DE:de", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=de&tbm=nws", 
+      "title": "Google News (Deutsch)", 
+      "uid": "de"
+    }, 
+    {
+      "name": "Français", 
+      "search_url": "https://news.google.com/search?q={query}&hl=fr&gl=FR&ceid=FR:fr", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=fr&tbm=nws", 
+      "title": "Google News (Français)", 
+      "uid": "fr"
+    }, 
+    {
+      "name": "Español", 
+      "search_url": "https://news.google.com/search?q={query}&hl=es&gl=ES&ceid=ES:es", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=es&tbm=nws", 
+      "title": "Google News (Español)", 
+      "uid": "es"
+    }, 
+    {
+      "name": "Italiano", 
+      "search_url": "https://news.google.com/search?q={query}&hl=it&gl=IT&ceid=IT:it", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=it&tbm=nws", 
+      "title": "Google News (Italiano)", 
+      "uid": "it"
+    }, 
+    {
+      "name": "Português", 
+      "search_url": "https://news.google.com/search?q={query}&hl=pt&gl=PT&ceid=PT:pt", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=pt&tbm=nws", 
+      "title": "Google News (Português)", 
+      "uid": "pt"
+    }, 
+    {
+      "name": "Русский", 
+      "search_url": "https://news.google.com/search?q={query}&hl=ru&gl=RU&ceid=RU:ru", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=ru&tbm=nws", 
+      "title": "Google News (Русский)", 
+      "uid": "ru"
+    }, 
+    {
+      "name": "日本語", 
+      "search_url": "https://news.google.com/search?q={query}&hl=ja&gl=JP&ceid=JP:ja", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=ja&tbm=nws", 
+      "title": "Google News (日本語)", 
+      "uid": "ja"
+    }, 
+    {
+      "name": "한국어", 
+      "search_url": "https://news.google.com/search?q={query}&hl=ko&gl=KR&ceid=KR:ko", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=ko&tbm=nws", 
+      "title": "Google News (한국어)", 
+      "uid": "ko"
+    }, 
+    {
+      "name": "中文", 
+      "search_url": "https://news.google.com/search?q={query}&hl=zh&gl=CN&ceid=CN:zh", 
+      "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=zh&tbm=nws", 
+      "title": "Google News (中文)", 
+      "uid": "zh"
+    }
+  ]
+} 

@@ -777,9 +777,9 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>Giovanni after Dean Jackson</string>
+	<string>giovanni (after Dean Jackson)</string>
 	<key>description</key>
-	<string>Search via DuckDuckGo/Google/Bing/Wikipedia/Wiktionary/Ask</string>
+	<string>Auto-suggest search results from multiple search engines and languages</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -2400,8 +2400,6 @@ ok=$?
 	<string># Searchio!
 Search suggestions from multiple search engines in different locales
 
-More info [here](https://github.com/giovannicoppola/alfred-searchio)
-
 Supports the following search engines/websites:
 
 - Amazon
@@ -2413,24 +2411,26 @@ Supports the following search engines/websites:
 - Google "I'm Feeling Lucky"
 - Google Images
 - Google Maps (requires a Google Places API key)
+- Google News
 - Naver
-- Wikia (only the top ~200 wikis, but you can [import](#importing-searches) any others)
+- Wikia (only the top ~200 wikis, but you can import any others)
 - Wikipedia
 - Wiktionary
 - Yandex
 - YouTube
-- **plus** it can [import a search configuration](#importing-searches) from *any* website that supports OpenSearch autosuggestions
-
+- Other websites supporting OpenSearch autosuggestions
 
 
 ## Usage
 -----
 
-There are several example searches pre-configured:
+Pre-configured example searches:
 
 - `g` — Search Google in English
 - `w` — Search the English Wikipedia
-- `yt` — Search the United States version of YouTube</string>
+- `yt` — Search the United States version of YouTube
+
+More info [here](https://github.com/giovannicoppola/alfred-searchio)</string>
 	<key>uidata</key>
 	<dict>
 		<key>038601C3-C18D-4ECB-8AB2-8C64E8A1AF84</key>
@@ -3197,7 +3197,7 @@ There are several example searches pre-configured:
 				<string></string>
 			</dict>
 			<key>description</key>
-			<string>Check to always show entered query in the results. If unchecked, the query will only be shown if there are no other results.</string>
+			<string>Check to always show the entered query in the results. If unchecked, the query will only be shown if there are no other results.</string>
 			<key>label</key>
 			<string>Show query in results?</string>
 			<key>type</key>
@@ -3206,8 +3206,6 @@ There are several example searches pre-configured:
 			<string>SHOW_QUERY_IN_RESULTS</string>
 		</dict>
 	</array>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
 	<string>3.0</string>
 	<key>webaddress</key>
