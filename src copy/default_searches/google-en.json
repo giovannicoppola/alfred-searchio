@@ -1,0 +1,10 @@
+{
+  "name": "English",
+  "search_url": "https://www.google.com/search?q={query}&hl=en&safe=off",
+  "suggest_url": "https://suggestqueries.google.com/complete/search?client=firefox&q={query}&hl=en",
+  "title": "Google (English)",
+  "uid": "en",
+  "icon": "icons/engines/google.png",
+  "jsonpath": "$[1][*]",
+  "keyword": "g"
+}

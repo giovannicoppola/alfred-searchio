@@ -25,6 +25,7 @@ Commands:
     add          Add a new search to the workflow
     clean        Delete stale cache files
     config       Display (filtered) settings
+    delete       Delete a search engine
     help         Show help for a command
     list         Display (filtered) list of engines
     reload       Update info.plist
@@ -90,6 +91,10 @@ def cli(wf):
         from searchio.cmd.config import run
         return run(wf, argv)
 
+    elif cmd == 'delete':
+        from searchio.cmd.delete import run
+        return run(wf, argv)
+
     elif cmd == 'fetch':
         from searchio.cmd.fetch import run
         return run(wf, argv)
@@ -102,19 +107,19 @@ def cli(wf):
         from searchio.cmd.list import run
         return run(wf, argv)
 
-    if cmd == 'reload':
+    elif cmd == 'reload':
         from searchio.cmd.reload import run
         return run(wf, argv)
 
-    if cmd == 'search':
+    elif cmd == 'search':
         from searchio.cmd.search import run
         return run(wf, argv)
 
-    if cmd == 'toggle':
+    elif cmd == 'toggle':
         from searchio.cmd.toggle import run
         return run(wf, argv)
 
-    if cmd == 'user':
+    elif cmd == 'user':
         from searchio.cmd.user import run
         return run(wf, argv)
 

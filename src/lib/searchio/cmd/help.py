@@ -45,6 +45,7 @@ def run(wf, argv):
     import searchio.cmd.add
     import searchio.cmd.clean
     import searchio.cmd.config
+    import searchio.cmd.delete
     import searchio.cmd.list
     import searchio.cmd.reload
     import searchio.cmd.search
@@ -55,6 +56,7 @@ def run(wf, argv):
         'add': searchio.cmd.add.usage,
         'clean': searchio.cmd.clean.usage,
         'config': searchio.cmd.config.usage,
+        'delete': searchio.cmd.delete.usage,
         'help': usage,
         'list': searchio.cmd.list.usage,
         'reload': searchio.cmd.reload.usage,

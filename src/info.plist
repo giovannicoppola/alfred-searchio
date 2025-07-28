@@ -4,8 +4,6 @@
 <dict>
 	<key>bundleid</key>
 	<string>net.giovanni.alfred-searchio</string>
-	<key>category</key>
-	<string>Internet</string>
 	<key>connections</key>
 	<dict>
 		<key>05C661C6-76C1-4C45-AACC-2611A2859A4E</key>
@@ -562,6 +560,16 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>2AA108C6-BE54-4F35-A164-7B061D885190</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
 		</array>
 		<key>BF5248AB-58DE-4120-AD10-35231A6B2FB9</key>
 		<array>
@@ -779,7 +787,7 @@
 	<key>createdby</key>
 	<string>giovanni (after Dean Jackson)</string>
 	<key>description</key>
-	<string>Auto-suggest search results from multiple search engines and languages</string>
+	<string>Search via OpenSearch Engines</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -1194,6 +1202,55 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>g</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Fetching results…</string>
+				<key>script</key>
+				<string>./search google-en "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Searchio!</string>
+				<key>title</key>
+				<string>Google (English)</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>google-en</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>inputstring</key>
 				<string>{var:action}</string>
 				<key>matchcasesensitive</key>
@@ -1412,7 +1469,7 @@ echo -n "$p"</string>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>g</string>
+				<string>w</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -1424,7 +1481,7 @@ echo -n "$p"</string>
 				<key>runningsubtext</key>
 				<string>Fetching results…</string>
 				<key>script</key>
-				<string>./search google-en "$1"</string>
+				<string>./search wikipedia-en "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -1432,7 +1489,7 @@ echo -n "$p"</string>
 				<key>subtext</key>
 				<string>Searchio!</string>
 				<key>title</key>
-				<string>Google (English)</string>
+				<string>Wikipedia (English)</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -1441,7 +1498,7 @@ echo -n "$p"</string>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>google-en</string>
+			<string>wikipedia-en</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -1616,19 +1673,33 @@ ok=$?
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>script</key>
-				<string>on run argv
-	set thePath to item 1 of argv
-	set posixFile to POSIX file thePath
-	tell application "Finder"
-		move posixFile to trash
-	end tell
-end run</string>
+				<string>python3 -c "
+import sys
+import os
+sys.path.insert(0, './lib')
+from workflow import Workflow3
+from searchio.cmd.delete import run as delete_run
+
+# Get the search UID from environment variable (Alfred sets this)
+search_uid = os.environ.get('search', '')
+
+# Use the search UID directly (no need for file path extraction)
+if search_uid:
+    wf = Workflow3()
+    try:
+        delete_run(wf, ['delete', search_uid])
+        print('Search engine deleted successfully', file=sys.stderr)
+    except Exception as e:
+        print(f'Error deleting search: {e}', file=sys.stderr)
+else:
+    print('No search UID found in environment', file=sys.stderr)
+"</string>
 				<key>scriptargtype</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
-				<integer>6</integer>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
@@ -1672,7 +1743,7 @@ end run</string>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>w</string>
+				<string>yt</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -1684,7 +1755,7 @@ end run</string>
 				<key>runningsubtext</key>
 				<string>Fetching results…</string>
 				<key>script</key>
-				<string>./search wikipedia-en "$1"</string>
+				<string>./search youtube-us "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -1692,7 +1763,7 @@ end run</string>
 				<key>subtext</key>
 				<string>Searchio!</string>
 				<key>title</key>
-				<string>Wikipedia (English)</string>
+				<string>YouTube (United States)</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -1701,7 +1772,7 @@ end run</string>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>wikipedia-en</string>
+			<string>youtube-us</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -1786,6 +1857,27 @@ end run</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{var:search}</string>
+				<key>title</key>
+				<string>Engine Deleted 🗑️</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>2AA108C6-BE54-4F35-A164-7B061D885190</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -1826,55 +1918,6 @@ end run</string>
 			<string>8A8E3E3C-8B3B-4739-ACD1-6B8D2668EF02</string>
 			<key>version</key>
 			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>yt</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string>Fetching results…</string>
-				<key>script</key>
-				<string>./search youtube-us "$1"</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Searchio!</string>
-				<key>title</key>
-				<string>YouTube (United States)</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>youtube-us</string>
-			<key>version</key>
-			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -2408,8 +2451,8 @@ Supports the following search engines/websites:
 - DuckDuckGo Image Search
 - eBay
 - Google
-- Google "I'm Feeling Lucky"
 - Google Images
+- Google "I'm Feeling Lucky"
 - Google Maps (requires a Google Places API key)
 - Google News
 - Naver
@@ -2536,6 +2579,15 @@ More info [here](https://github.com/giovannicoppola/alfred-searchio)</string>
 			<real>1150</real>
 			<key>ypos</key>
 			<real>1230</real>
+		</dict>
+		<key>2AA108C6-BE54-4F35-A164-7B061D885190</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>12</integer>
+			<key>xpos</key>
+			<real>2080</real>
+			<key>ypos</key>
+			<real>685</real>
 		</dict>
 		<key>2BBA8827-6AAC-48B3-8381-01C70621357C</key>
 		<dict>
@@ -3102,7 +3154,7 @@ More info [here](https://github.com/giovannicoppola/alfred-searchio)</string>
 			<key>xpos</key>
 			<real>270</real>
 			<key>ypos</key>
-			<real>390</real>
+			<real>220</real>
 		</dict>
 		<key>wikipedia-en</key>
 		<dict>
@@ -3111,7 +3163,7 @@ More info [here](https://github.com/giovannicoppola/alfred-searchio)</string>
 			<key>xpos</key>
 			<real>270</real>
 			<key>ypos</key>
-			<real>560</real>
+			<real>390</real>
 		</dict>
 		<key>youtube-us</key>
 		<dict>
@@ -3120,7 +3172,7 @@ More info [here](https://github.com/giovannicoppola/alfred-searchio)</string>
 			<key>xpos</key>
 			<real>270</real>
 			<key>ypos</key>
-			<real>730</real>
+			<real>560</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
@@ -3206,6 +3258,8 @@ More info [here](https://github.com/giovannicoppola/alfred-searchio)</string>
 			<string>SHOW_QUERY_IN_RESULTS</string>
 		</dict>
 	</array>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
 	<string>3.0</string>
 	<key>webaddress</key>

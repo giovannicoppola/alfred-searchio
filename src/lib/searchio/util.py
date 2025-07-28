@@ -413,12 +413,14 @@ class Table(object):
                              self.width, len(row)))
         l = []
         for obj in row:
-            if isinstance(obj, str):
+            if hasattr(obj, 'decode') and callable(getattr(obj, 'decode')):
+                # Python 2 str (bytes)
                 s = obj.decode('utf-8')
-            elif isinstance(obj, unicode):
+            elif isinstance(obj, str):
+                # Python 3 str or Python 2 unicode
                 s = obj
             else:
-                s = unicode(obj)
+                s = str(obj)
 
             l.append(s)
 

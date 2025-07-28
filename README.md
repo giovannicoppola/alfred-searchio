@@ -1,7 +1,5 @@
 # Alfred-Searchio!
 
-=============================
-
 Auto-suggest search results from multiple search engines and languages.
 Original from [@deanishe](https://github.com/deanishe/alfred-searchio)
 
@@ -48,14 +46,14 @@ Supports the following search engines/websites:
 - **plus** it can [import a search configuration](#importing-searches) from _any_ website that supports OpenSearch autosuggestions
 
 <a name="download-and-installation"></a>
-Download and installation
+### Download and installation
 
 ---
 
 Download the latest version from the [GitHub releases page](https://github.com/giovannicoppola/alfred-searchio/releases/latest).
 
 <a name="usage"></a>
-Usage
+### Usage
 
 ---
 
@@ -73,7 +71,7 @@ The workflow is configured via the `searchio` keyword and some [workflow variabl
 
 <a name="workflow-configuration-sheet"></a>
 
-#### Workflow Configuration Sheet
+#### Workflow Configuration 
 
 There are some variables in the workflow configuration screen:
 
@@ -89,7 +87,6 @@ There are some variables in the workflow configuration screen:
 #### In-Workflow Configuration
 
 - `searchio [<query>]` — Show workflow settings
-  - `Update Available …` — Shown if there is a new version of the workflow available to download. Action the item to install it.
   - `Installed Searches …` — View and delete your configured searches
   - `All Engines …` — View supported engines and add new searches
   - `Import Search …` — Import a new search configuration from a URL (see [Importing Searches](#importing-searches))
@@ -101,7 +98,6 @@ There are some variables in the workflow configuration screen:
     order they are returned by the API. If on, `Show Query in Results`
     cannot guarantee that the query is always the last result.
   - `Online Help` — Open this page in your browser.
-  - `Workflow up to Date` — You have the latest version of the workflow. Action this item to force a check for a new version.
 
 <a name="importing-searches"></a>
 
@@ -149,6 +145,13 @@ The optional `pcencode` field tells Searchio! to percent-encode the search query
 `variants` define the actual searches supported by the search engine, typically one per region or language. All fields are required. `suggest_url` points to the autosuggestion endpoint and `search_url` is the URL of the search results that should be opened in the browser. Both URLs must contain the `{query}` placeholder, which is replaced with the user's search query.
 
 The (optional) icon for your custom engine should be placed in the `icons` directory alongside the `engines` one. It should have the same basename as the engine definition file, just with a different file extension. Supported icon extensions are `png`, `icns`, `jpg` and `jpeg`.
+
+<a name="changelog"></a>
+## Changelog
+
+- 2025-07-28: v3.0: fixed amazon search and a few other things, notarized binary, added google news. 
+- 2022-12-05: v2.2: Alfred 5 compatibility
+- 2022-09-17: v1.2 ported to Python 3
 
 <a name="licensing-thanks"></a>
 
