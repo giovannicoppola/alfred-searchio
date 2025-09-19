@@ -34,7 +34,7 @@ Commands:
     web          Import a new search from a URL
 """
 
-from __future__ import print_function, absolute_import
+from __future__ import absolute_import, print_function
 
 import os
 import sys
@@ -58,18 +58,18 @@ def cli(wf):
     """
     from docopt import docopt
 
-    vstr = '{} v{}'.format(wf.name, wf.version)
+    vstr = "{} v{}".format(wf.name, wf.version)
     wf.args
     args = docopt(usage(wf), version=vstr, options_first=True)
-    log.debug('args=%r', args)
+    log.debug("args=%r", args)
 
-    cmd = args.get('<command>')
-    argv = [cmd] + args.get('<args>')
+    cmd = args.get("<command>")
+    argv = [cmd] + args.get("<args>")
 
     # ---------------------------------------------------------
     # Initialise
 
-    for fn in ('backups', 'engines', 'icons', 'searches'):
+    for fn in ("backups", "engines", "icons", "searches"):
         try:
             os.makedirs(wf.datafile(fn), 0o700)
         except Exception as err:
@@ -79,56 +79,69 @@ def cli(wf):
     # ---------------------------------------------------------
     # Call sub-command
 
-    if cmd == 'add':
+    if cmd == "add":
         from searchio.cmd.add import run
+
         return run(wf, argv)
 
-    elif cmd == 'clean':
+    elif cmd == "clean":
         from searchio.cmd.clean import run
+
         return run(wf, argv)
 
-    elif cmd == 'config':
+    elif cmd == "config":
         from searchio.cmd.config import run
+
         return run(wf, argv)
 
-    elif cmd == 'delete':
+    elif cmd == "delete":
         from searchio.cmd.delete import run
+
         return run(wf, argv)
 
-    elif cmd == 'fetch':
+    elif cmd == "fetch":
         from searchio.cmd.fetch import run
+
         return run(wf, argv)
 
-    elif cmd == 'help':
+    elif cmd == "help":
         from searchio.cmd.help import run
+
         return run(wf, argv)
 
-    elif cmd == 'list':
+    elif cmd == "list":
         from searchio.cmd.list import run
+
         return run(wf, argv)
 
-    elif cmd == 'reload':
+    elif cmd == "reload":
         from searchio.cmd.reload import run
+
         return run(wf, argv)
 
-    elif cmd == 'search':
+    elif cmd == "search":
         from searchio.cmd.search import run
+
         return run(wf, argv)
 
-    elif cmd == 'toggle':
+    elif cmd == "toggle":
         from searchio.cmd.toggle import run
+
         return run(wf, argv)
 
-    elif cmd == 'user':
+    elif cmd == "user":
         from searchio.cmd.user import run
+
         return run(wf, argv)
 
-    elif cmd == 'variants':
+    elif cmd == "variants":
         from searchio.cmd.variants import run
+
         return run(wf, argv)
 
-    elif cmd == 'web':
+    elif cmd == "web":
         from searchio.cmd.web import run
+
         return run(wf, argv)
 
     else:
@@ -137,7 +150,8 @@ def cli(wf):
 
 def main():
     from workflow import Workflow3
-    from searchio import UPDATE_SETTINGS, HELP_URL
-    wf = Workflow3(update_settings=UPDATE_SETTINGS,
-                   help_url=HELP_URL)
+
+    from searchio import HELP_URL
+
+    wf = Workflow3(help_url=HELP_URL)
     sys.exit(wf.run(cli))

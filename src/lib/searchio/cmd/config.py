@@ -21,20 +21,16 @@ Options:
     -h, --help     Display this help message
 """
 
-from __future__ import print_function, absolute_import
+from __future__ import absolute_import, print_function
 
 from operator import itemgetter
 
 from docopt import docopt
+from workflow import ICON_WARNING  # ICON_SETTINGS,
 
-from workflow import (
-    # ICON_SETTINGS,
-    ICON_WARNING,
-)
-
-from searchio.core import Context
 # from searchio.engines import Manager as EngineManager
 from searchio import util
+from searchio.core import Context
 
 log = util.logger(__name__)
 
@@ -47,112 +43,102 @@ def usage(wf=None):
 def run(wf, argv):
     """Run ``searchio list`` sub-command."""
     ctx = Context(wf)
-    ICON_ACTIVE = ctx.icon('searches-active')
-    ICON_UPDATE_AVAILABLE = ctx.icon('update-available')
+    ICON_ACTIVE = ctx.icon("searches-active")
 
-    ICON_HELP = ctx.icon('help')
-    ICON_IMPORT = ctx.icon('import')
-    ICON_RELOAD = ctx.icon('reload')
-    ICON_ON = ctx.icon('toggle-on')
-    ICON_OFF = ctx.icon('toggle-off')
+    ICON_HELP = ctx.icon("help")
+    ICON_IMPORT = ctx.icon("import")
+    ICON_RELOAD = ctx.icon("reload")
+    ICON_ON = ctx.icon("toggle-on")
+    ICON_OFF = ctx.icon("toggle-off")
 
     args = docopt(usage(wf), argv)
 
-    log.debug('args=%r', args)
-    query = wf.decode(args.get('<query>') or '').strip()
+    log.debug("args=%r", args)
+    query = wf.decode(args.get("<query>") or "").strip()
 
     # ---------------------------------------------------------
     # Configuration items
 
     items = []
 
-    if wf.update_available:
-        items.append(dict(
-            title=u'Update Available \U00002026',
-            subtitle=u'Action to install now',
-            autocomplete=u'workflow:update',
-            valid=False,
-            icon=ICON_UPDATE_AVAILABLE,
-        ))
+    items.append(
+        dict(
+            title="Installed Searches \U00002026",
+            subtitle="Your configured searches",
+            arg="user",
+            valid=True,
+            icon=ICON_ACTIVE,
+        )
+    )
 
-    items.append(dict(
-        title=u'Installed Searches \U00002026',
-        subtitle=u'Your configured searches',
-        arg=u'user',
-        valid=True,
-        icon=ICON_ACTIVE,
-    ))
+    items.append(
+        dict(
+            title="All Engines \U00002026",
+            subtitle="View supported engines and add new searches",
+            arg="engines",
+            valid=True,
+            icon="icon.png",
+        )
+    )
 
-    items.append(dict(
-        title=u'All Engines \U00002026',
-        subtitle=u'View supported engines and add new searches',
-        arg=u'engines',
-        valid=True,
-        icon=u'icon.png',
-    ))
+    items.append(
+        dict(
+            title="Reload",
+            subtitle="Re-create your searches",
+            arg="reload",
+            valid=True,
+            # autocomplete=u'workflow:help',
+            # valid=False,
+            icon=ICON_RELOAD,
+        )
+    )
 
-    items.append(dict(
-        title=u'Import Search \U00002026',
-        subtitle=u'Add a search from a URL',
-        arg=u'import',
-        valid=True,
-        icon=ICON_IMPORT,
-    ))
+    icon = ICON_ON if ctx.getbool("SHOW_QUERY_IN_RESULTS") else ICON_OFF
+    items.append(
+        dict(
+            title="Show Query in Results",
+            subtitle="Always add query to end of results",
+            arg="toggle-show-query",
+            valid=True,
+            # autocomplete=u'workflow:help',
+            # valid=False,
+            icon=icon,
+        )
+    )
 
-    items.append(dict(
-        title=u'Reload',
-        subtitle=u'Re-create your searches',
-        arg=u'reload',
-        valid=True,
-        # autocomplete=u'workflow:help',
-        # valid=False,
-        icon=ICON_RELOAD,
-    ))
+    icon = ICON_ON if ctx.getbool("ALFRED_SORTS_RESULTS") else ICON_OFF
+    items.append(
+        dict(
+            title="Alfred Sorts Results",
+            subtitle="Apply Alfred's knowledge to suggestions",
+            arg="toggle-alfred-sorts",
+            valid=True,
+            # autocomplete=u'workflow:help',
+            # valid=False,
+            icon=icon,
+        )
+    )
 
-    icon = ICON_ON if ctx.getbool('SHOW_QUERY_IN_RESULTS') else ICON_OFF
-    items.append(dict(
-        title=u'Show Query in Results',
-        subtitle=u'Always add query to end of results',
-        arg=u'toggle-show-query',
-        valid=True,
-        # autocomplete=u'workflow:help',
-        # valid=False,
-        icon=icon,
-    ))
-
-    icon = ICON_ON if ctx.getbool('ALFRED_SORTS_RESULTS') else ICON_OFF
-    items.append(dict(
-        title=u'Alfred Sorts Results',
-        subtitle=u"Apply Alfred's knowledge to suggestions",
-        arg=u'toggle-alfred-sorts',
-        valid=True,
-        # autocomplete=u'workflow:help',
-        # valid=False,
-        icon=icon,
-    ))
-
-    items.append(dict(
-        title=u'Online Help',
-        subtitle=u'Open the help page in your browser',
-        arg=u'help',
-        valid=True,
-        # autocomplete=u'workflow:help',
-        # valid=False,
-        icon=ICON_HELP,
-    ))
-
-
+    items.append(
+        dict(
+            title="Online Help",
+            subtitle="Open the help page in your browser",
+            arg="help",
+            valid=True,
+            # autocomplete=u'workflow:help',
+            # valid=False,
+            icon=ICON_HELP,
+        )
+    )
 
     # ---------------------------------------------------------
     # Show results
 
     if query:
-        items = wf.filter(query, items, key=itemgetter('title'))
+        items = wf.filter(query, items, key=itemgetter("title"))
 
     if not items:
-        wf.add_item('No matching items',
-                    'Try a different query?',
-                    icon=ICON_WARNING)
+        wf.add_item("No matching items", "Try a different query?", icon=ICON_WARNING)
 
     for d in items:
         wf.add_item(**d)
