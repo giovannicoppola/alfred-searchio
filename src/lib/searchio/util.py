@@ -342,7 +342,13 @@ def getjson(url):
         object: JSON-deserialised HTTP response.
 
     """
+    import time
     from workflow import web
+    
+    # Add small delay for Wikipedia API to avoid rate limiting
+    if 'wikipedia.org' in url:
+        time.sleep(0.1)
+    
     r = web.get(url)
     log.debug('[%s] %s', r.status_code, r.url)
     r.raise_for_status()

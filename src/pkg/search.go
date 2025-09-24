@@ -10,6 +10,7 @@
 package main
 
 import (
+	"compress/gzip"
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
@@ -247,10 +248,24 @@ func loadSearch(id string) (*Search, error) {
 }
 
 func decodeResponse(r *http.Response) ([]byte, error) {
-	data, err := ioutil.ReadAll(r.Body)
+	var reader io.Reader = r.Body
+
+	// Handle gzip compression
+	if r.Header.Get("Content-Encoding") == "gzip" {
+		gzReader, err := gzip.NewReader(r.Body)
+		if err != nil {
+			return nil, fmt.Errorf("failed to create gzip reader: %v", err)
+		}
+		defer gzReader.Close()
+		reader = gzReader
+	}
+
+	data, err := ioutil.ReadAll(reader)
 	if err != nil {
 		return nil, err
 	}
+
+	// Handle character encoding
 	enc, name, ok := charset.DetermineEncoding(data, r.Header.Get("Content-Type"))
 	log.Printf("enc=%v, name=%s, ok=%v", enc, name, ok)
 
@@ -269,7 +284,19 @@ func searchServer(s *Search, q string) ([]string, error) {
 		words  = []string{}
 	)
 
-	r, err := client.Get(u)
+	// Create request with proper headers
+	req, err := http.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Set User-Agent and other headers for Wikipedia API compatibility
+	req.Header.Set("User-Agent", "Alfred-Searchio-Workflow/1.40.0 (https://github.com/giovannicoppola/alfred-searchio; giovanni@example.com)")
+	req.Header.Set("Accept", "application/json, text/plain, */*")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.9")
+	req.Header.Set("Accept-Encoding", "gzip, deflate")
+
+	r, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -283,6 +310,14 @@ func searchServer(s *Search, q string) ([]string, error) {
 	data, err := decodeResponse(r)
 	if err != nil {
 		return nil, err
+	}
+
+	// Log the response data for debugging
+	log.Printf("Response data length: %d", len(data))
+	if len(data) < 200 {
+		log.Printf("Response data: %s", string(data))
+	} else {
+		log.Printf("Response data (first 200 chars): %s", string(data[:200]))
 	}
 
 	// Append + as we want to extract a value, not a path
@@ -301,7 +336,12 @@ func searchServer(s *Search, q string) ([]string, error) {
 
 	eval, err := jsonpath.EvalPathsInBytes(data, paths)
 	if err != nil {
-		return nil, fmt.Errorf("JSON parse error: %v", err)
+		// Try to parse as plain JSON first to see if it's valid JSON
+		var testJSON interface{}
+		if jsonErr := json.Unmarshal(data, &testJSON); jsonErr != nil {
+			return nil, fmt.Errorf("Invalid JSON response: %v (original error: %v)", jsonErr, err)
+		}
+		return nil, fmt.Errorf("JSON path evaluation error: %v", err)
 	}
 
 	for {
@@ -348,7 +388,7 @@ func doSearch(s *Search, q string) error {
 		icon = &aw.Icon{Value: s.Icon}
 	)
 	for _, word := range words {
-		if strings.ToLower(word) == strings.ToLower(q) && !queryInResults {
+		if strings.EqualFold(word, q) && !queryInResults {
 			continue
 		}
 		URL := s.SearchURLForQuery(word)

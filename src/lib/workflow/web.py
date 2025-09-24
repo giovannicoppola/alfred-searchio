@@ -27,8 +27,8 @@ import zlib
 
 __version__ = open(os.path.join(os.path.dirname(__file__), 'version')).read()
 
-USER_AGENT = (u'Alfred-Workflow/' + __version__ +
-              ' (+http://www.deanishe.net/alfred-workflow)')
+USER_AGENT = (u'Alfred-Searchio-Workflow/' + __version__ +
+              ' (https://github.com/giovannicoppola/alfred-searchio; giovanni@example.com)')
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
@@ -551,6 +551,13 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
 
     if 'user-agent' not in headers:
         headers['user-agent'] = USER_AGENT
+
+    # Add headers recommended by Wikipedia API
+    if 'accept' not in headers:
+        headers['accept'] = 'application/json, text/plain, */*'
+    
+    if 'accept-language' not in headers:
+        headers['accept-language'] = 'en-US,en;q=0.9'
 
     # Accept gzip-encoded content
     encodings = [s.strip() for s in
