@@ -19,7 +19,6 @@ src="https://img.shields.io/github/downloads/giovannicoppola/alfred-searchio/tot
   - [Configuration](#configuration)
     - [Workflow Configuration Sheet](#workflow-configuration-sheet)
     - [In-Workflow Configuration](#in-workflow-configuration)
-  - [Importing Searches](#importing-searches)
 - [Adding Engines](#adding-engines)
 - [Licensing, thanks](#licensing-thanks)
 
@@ -89,7 +88,6 @@ There are some variables in the workflow configuration screen:
 - `searchio [<query>]` — Show workflow settings
   - `Installed Searches …` — View and delete your configured searches
   - `All Engines …` — View supported engines and add new searches
-  - `Import Search …` — Import a new search configuration from a URL (see [Importing Searches](#importing-searches))
   - `Reload` — Regenerate the workflow's Script Filters from your configured searches (and clean the cache). Run this if you screw up the Script Filters or an update overwrites them.
   - `Show Query in Results` — Turn the option to show the query you entered in the results on/off. The query is added to the end of the results, so you can hit `↑` to go straight to it. The query is always shown if there are no other results.
   - `Alfred Sorts Results` — Turns Alfred's knowledge on/off. If on,
@@ -98,18 +96,6 @@ There are some variables in the workflow configuration screen:
     order they are returned by the API. If on, `Show Query in Results`
     cannot guarantee that the query is always the last result.
   - `Online Help` — Open this page in your browser.
-
-<a name="importing-searches"></a>
-
-### Importing Searches
-
-Searchio! has the ability to import a search configuration from any website that supports the OpenSearch autosuggestion API.
-
-Run `searchio` > `Import Search …` and the workflow will offer to import a search from a URL on your clipboard, the frontmost Safari tab or the frontmost Chrome tab.
-
-It will try to find and read the OpenSearch description at the URL and import it (and the website's icon if available), then ask you to assign a keyword for the search.
-
-**NOTE**: Although many websites support OpenSearch, few support the autosuggestion API that Searchio! uses. Sites based on MediaWiki usually support the API, so you can add all your favourite Wikia wikis (the built-in Wikia engine only supports the few hundred most popular wikis).
 
 <a name="adding-engines"></a>
 Adding Engines
@@ -149,6 +135,7 @@ The (optional) icon for your custom engine should be placed in the `icons` direc
 <a name="changelog"></a>
 ## Changelog
 
+- 2025-09-24: v3.1: removed URL-based engine import, submitted to Alfred Gallery
 - 2025-07-28: v3.0: fixed amazon search and a few other things, notarized binary, added google news. 
 - 2022-12-05: v2.2: Alfred 5 compatibility
 - 2022-09-17: v1.2 ported to Python 3
