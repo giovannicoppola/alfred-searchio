@@ -149,6 +149,16 @@ func copyFile(src, dst string) error {
 }
 
 func init() {
+	if os.Getenv("alfred_workflow_bundleid") == "" {
+		os.Setenv("alfred_workflow_bundleid", "net.giovanni.alfred-searchio")
+		home := os.Getenv("HOME")
+		if os.Getenv("alfred_workflow_cache") == "" {
+			os.Setenv("alfred_workflow_cache", filepath.Join(home, "Library/Caches/com.runningwithcrayons.Alfred/Workflow Data/net.giovanni.alfred-searchio"))
+		}
+		if os.Getenv("alfred_workflow_data") == "" {
+			os.Setenv("alfred_workflow_data", filepath.Join(home, "Library/Application Support/Alfred/Workflow Data/net.giovanni.alfred-searchio"))
+		}
+	}
 	wf = aw.New()
 	queryInResults = wf.Config.GetBool("SHOW_QUERY_IN_RESULTS")
 	alfredSortsResults = wf.Config.GetBool("ALFRED_SORTS_RESULTS")
@@ -422,7 +432,11 @@ func doSearch(s *Search, q string) error {
 func run() {
 	argv := wf.Args()
 	if len(argv) < 2 {
-		log.Fatalln("usage: search <search> <query>")
+		wf.NewItem("Usage: search <search> <query>").
+			Subtitle("Missing search id or query").
+			Valid(false)
+		wf.SendFeedback()
+		return
 	}
 	searchID, query = argv[0], argv[1]
 	s, err := loadSearch(searchID)

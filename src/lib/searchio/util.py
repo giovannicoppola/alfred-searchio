@@ -271,9 +271,9 @@ def mkurl(url, query=None, pcencode=False):
 
     """
     if pcencode:
-        from urllib import quote
+        from urllib.parse import quote
     else:
-        from urllib import quote_plus as quote
+        from urllib.parse import quote_plus as quote
     if not query:
         return url
 
