@@ -195,6 +195,36 @@ def remove_script_filters(wf, data):
         del data['uidata'][uid]
 
 
+def load_search_file(wf, path):
+    """Load a saved search, filling in keys missing from older files.
+
+    Returns:
+        Search: The search, or ``None`` if the file can't be used.
+
+    """
+    try:
+        with open(path) as fp:
+            d = json.load(fp)
+
+        d['uid'] = util.path2uid(path)
+        # Older searches may lack an icon. Use the engine's icon,
+        # e.g. "Amazon (US)" -> icons/engines/amazon.png
+        if not d.get('icon'):
+            words = d.get('title', '').split()
+            icon = 'icons/engines/{}.png'.format(words[0].lower() if words else '')
+            if not os.path.exists(wf.workflowfile(icon)):
+                icon = 'icon.png'
+            d['icon'] = icon
+            log.info('Using icon "%s" for search "%s"', icon, d['uid'])
+        d.setdefault('jsonpath', '$[1][*]')
+
+        return Search.from_dict(d)
+    except Exception as err:
+        # One bad file mustn't stop the user's other searches loading
+        log.warning('Skipping unreadable search "%s": %s', path, err)
+        return None
+
+
 def load_searches(wf):
     """Return default searches (minus deleted ones) and user searches."""
     ctx = Context(wf)
@@ -213,7 +243,11 @@ def load_searches(wf):
 
     # Then, load user searches (these will override defaults if same UID)
     f = util.FileFinder([ctx.searches_dir], ['json'])
-    user_searches = [Search.from_file(p) for p in f]
+    user_searches = []
+    for p in f:
+        search = load_search_file(wf, p)
+        if search:
+            user_searches.append(search)
 
     # Merge user searches with defaults, with user searches taking precedence
     user_uids = {s.uid for s in user_searches}

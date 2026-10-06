@@ -91,9 +91,10 @@ func installDefaultSearchesIfNeeded() {
 // restoreSearchesIfUpdated restores the user's searches after a workflow update.
 //
 // Updating the workflow replaces info.plist, which drops the Script Filters
-// generated for the user's searches. The first time a new version runs,
-// start `searchio reload --if-needed` in the background to re-create them.
-// It records the version in the same file, so this only happens once.
+// generated for the user's searches. Until `searchio reload --if-needed` has
+// recorded the current version in restored_version, start it in the
+// background to re-create them, at most once a minute so a failing restore
+// is retried without starting one per keystroke.
 func restoreSearchesIfUpdated() {
 	version := wf.Version()
 	if version == "" {
@@ -103,9 +104,12 @@ func restoreSearchesIfUpdated() {
 	if b, err := ioutil.ReadFile(marker); err == nil && strings.TrimSpace(string(b)) == version {
 		return
 	}
-	// Write marker first, so subsequent keystrokes don't start more reloads.
-	if err := ioutil.WriteFile(marker, []byte(version), 0600); err != nil {
-		log.Printf("Failed to write %s: %v", marker, err)
+	started := filepath.Join(wf.DataDir(), "restore_started")
+	if fi, err := os.Stat(started); err == nil && time.Since(fi.ModTime()) < time.Minute {
+		return
+	}
+	if err := ioutil.WriteFile(started, []byte(version), 0600); err != nil {
+		log.Printf("Failed to write %s: %v", started, err)
 		return
 	}
 	cmd := exec.Command("./searchio", "reload", "--if-needed")
