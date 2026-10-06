@@ -55,6 +55,8 @@ Supports the following search engines/websites:
 
 Download the latest version from the [GitHub releases page](https://github.com/giovannicoppola/alfred-searchio/releases/latest).
 
+Updating the workflow replaces its Script Filters, but your searches are saved separately and are restored automatically the first time you use Searchio! after an update. If any are still missing, run `Reload` from the settings keyword.
+
 <a name="usage"></a>
 ### Usage
 

@@ -21,8 +21,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 
 	"golang.org/x/net/html/charset"
@@ -84,6 +86,37 @@ func installDefaultSearchesIfNeeded() {
 
 	// Icon paths are now set directly in Script Filter config, no symlinks needed
 	// createIconSymlinks()
+}
+
+// restoreSearchesIfUpdated restores the user's searches after a workflow update.
+//
+// Updating the workflow replaces info.plist, which drops the Script Filters
+// generated for the user's searches. The first time a new version runs,
+// start `searchio reload --if-needed` in the background to re-create them.
+// It records the version in the same file, so this only happens once.
+func restoreSearchesIfUpdated() {
+	version := wf.Version()
+	if version == "" {
+		return
+	}
+	marker := filepath.Join(wf.DataDir(), "restored_version")
+	if b, err := ioutil.ReadFile(marker); err == nil && strings.TrimSpace(string(b)) == version {
+		return
+	}
+	// Write marker first, so subsequent keystrokes don't start more reloads.
+	if err := ioutil.WriteFile(marker, []byte(version), 0600); err != nil {
+		log.Printf("Failed to write %s: %v", marker, err)
+		return
+	}
+	cmd := exec.Command("./searchio", "reload", "--if-needed")
+	cmd.Dir = wf.Dir()
+	// Own session, so Alfred killing this Script Filter doesn't kill the reload.
+	cmd.SysProcAttr = &syscall.SysProcAttr{Setsid: true}
+	if err := cmd.Start(); err != nil {
+		log.Printf("Failed to start searchio reload: %v", err)
+		return
+	}
+	log.Printf("Started searchio reload for version %s (pid %d)", version, cmd.Process.Pid)
 }
 
 // createIconSymlinks creates symlinks for Script Filter icons
@@ -439,6 +472,7 @@ func run() {
 		return
 	}
 	searchID, query = argv[0], argv[1]
+	restoreSearchesIfUpdated()
 	s, err := loadSearch(searchID)
 	if err != nil {
 		wf.FatalError(err)
