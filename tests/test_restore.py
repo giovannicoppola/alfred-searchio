@@ -86,6 +86,40 @@ class RestoreTest(unittest.TestCase):
 
         self.assertEqual(os.stat(ip).st_mtime_ns, mtime)
 
+    def test_restores_changed_default_keyword(self):
+        # google-en ships with keyword "g"; the user changed it to "gg"
+        with open(os.path.join(self.wfdir, 'default_searches', 'google-en.json')) as fp:
+            d = json.load(fp)
+        d['keyword'] = 'gg'
+        self.save('google-en', d)
+        self.assertEqual(self.script_filters().get('google-en'), 'g')
+
+        self.searchio('reload', '--if-needed')
+        self.assertEqual(self.script_filters().get('google-en'), 'gg')
+
+        # Once restored, nothing is out of date, so info.plist is left alone
+        ip = os.path.join(self.wfdir, 'info.plist')
+        mtime = os.stat(ip).st_mtime_ns
+        self.searchio('reload', '--if-needed')
+        self.assertEqual(os.stat(ip).st_mtime_ns, mtime)
+
+    def test_keeps_keyword_set_in_alfred(self):
+        # Saved search says "g", but the user set "gg" in Alfred's editor
+        with open(os.path.join(self.wfdir, 'default_searches', 'google-en.json')) as fp:
+            self.save('google-en', json.load(fp))
+        ip = os.path.join(self.wfdir, 'info.plist')
+        with open(ip, 'rb') as fp:
+            data = plistlib.load(fp)
+        for o in data['objects']:
+            if o['uid'] == 'google-en':
+                o['config']['keyword'] = 'gg'
+        with open(ip, 'wb') as fp:
+            plistlib.dump(data, fp)
+
+        self.searchio('reload', '--if-needed')
+
+        self.assertEqual(self.script_filters().get('google-en'), 'gg')
+
     def test_search_without_icon(self):
         d = dict(DDG, title='Amazon (US)', keyword='az')
         del d['icon']

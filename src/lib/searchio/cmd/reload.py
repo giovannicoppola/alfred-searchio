@@ -255,10 +255,27 @@ def load_searches(wf):
 
 
 def missing_searches(wf, data):
-    """Return saved searches that have no Script Filter in info.plist data."""
-    have = {obj['uid'] for obj in data['objects']
+    """Return saved searches whose Script Filter is missing or out of date.
+
+    The shipped info.plist always has Script Filters for the default
+    searches (google-en, wikipedia-en, youtube-us), so a keyword the
+    user changed on one of those must be caught by comparing keywords,
+    not just UIDs. Only a Script Filter still carrying the shipped
+    keyword counts as out of date: any other keyword was set in
+    Alfred's editor (or migrated by Alfred) and is left alone.
+    """
+    shipped = {d['uid']: d['keyword'] for d in DEFAULTS}
+    have = {obj['uid']: obj['config'].get('keyword')
+            for obj in data['objects']
             if obj['type'] == 'alfred.workflow.input.scriptfilter'}
-    return [s for s in load_searches(wf) if s.keyword and s.uid not in have]
+
+    def out_of_date(s):
+        if s.uid not in have:
+            return True
+        kw = have[s.uid]
+        return kw != s.keyword and kw == shipped.get(s.uid)
+
+    return [s for s in load_searches(wf) if s.keyword and out_of_date(s)]
 
 
 def restore_if_needed(wf):
@@ -280,7 +297,7 @@ def restore_if_needed(wf):
 
         missing = missing_searches(wf, data)
         if missing:
-            log.info('Restoring %d search(es) missing from info.plist: %s',
+            log.info('Restoring %d search(es) missing or changed in info.plist: %s',
                      len(missing), ', '.join(s.uid for s in missing))
             remove_script_filters(wf, data)
             add_script_filters(wf, data)
