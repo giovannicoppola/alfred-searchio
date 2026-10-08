@@ -95,13 +95,16 @@ func installDefaultSearchesIfNeeded() {
 // recorded the current version in restored_version, start it in the
 // background to re-create them, at most once a minute so a failing restore
 // is retried without starting one per keystroke.
+//
+// It also runs again if info.plist changed after the last check: Alfred
+// Preferences, often open right after an update, writes its own copy of
+// info.plist back over the restored one.
 func restoreSearchesIfUpdated() {
 	version := wf.Version()
 	if version == "" {
 		return
 	}
-	marker := filepath.Join(wf.DataDir(), "restored_version")
-	if b, err := ioutil.ReadFile(marker); err == nil && strings.TrimSpace(string(b)) == version {
+	if restoreUpToDate(version) {
 		return
 	}
 	started := filepath.Join(wf.DataDir(), "restore_started")
@@ -121,6 +124,25 @@ func restoreSearchesIfUpdated() {
 		return
 	}
 	log.Printf("Started searchio reload for version %s (pid %d)", version, cmd.Process.Pid)
+}
+
+// restoreUpToDate reports whether restored_version records this version and
+// info.plist hasn't been modified since it was written.
+func restoreUpToDate(version string) bool {
+	marker := filepath.Join(wf.DataDir(), "restored_version")
+	b, err := ioutil.ReadFile(marker)
+	if err != nil || strings.TrimSpace(string(b)) != version {
+		return false
+	}
+	mfi, err := os.Stat(marker)
+	if err != nil {
+		return false
+	}
+	pfi, err := os.Stat(filepath.Join(wf.Dir(), "info.plist"))
+	if err != nil {
+		return true
+	}
+	return !pfi.ModTime().After(mfi.ModTime())
 }
 
 // createIconSymlinks creates symlinks for Script Filter icons
