@@ -3261,7 +3261,7 @@ More info [here](https://github.com/giovannicoppola/alfred-searchio)</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>3.1.1</string>
+	<string>3.1.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/giovannicoppola/alfred-searchio</string>
 </dict>

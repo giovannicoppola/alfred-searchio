@@ -76,6 +76,17 @@ def cli(wf):
             if err.errno != 17:  # ignore file exists
                 raise err
 
+    # Updating the workflow drops the Script Filters for the user's
+    # searches from info.plist, so put them back. `add` and `reload`
+    # rebuild info.plist themselves.
+    if cmd not in ("add", "reload"):
+        from searchio.cmd.reload import restore_if_needed
+
+        try:
+            restore_if_needed(wf)
+        except Exception as err:
+            log.exception("failed to restore searches: %s", err)
+
     # ---------------------------------------------------------
     # Call sub-command
 

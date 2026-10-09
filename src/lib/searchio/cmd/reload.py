@@ -13,12 +13,14 @@
 Update info.plist from saved searches.
 
 Usage:
-    searchio reload [--defaults]
+    searchio reload [--defaults|--if-needed]
     searchio -h
 
 Options:
-    -d, --defaults  Use default searches, not user's.
-    -h, --help      Display this help message.
+    -d, --defaults   Use default searches, not user's.
+    -n, --if-needed  Only reload if saved searches are missing
+                     from info.plist (e.g. after an update).
+    -h, --help       Display this help message.
 
 """
 
@@ -32,7 +34,7 @@ from docopt import docopt
 from searchio.core import Context
 from searchio.engines import Search
 from searchio import util
-import json
+from workflow.util import LockFile
 
 log = util.logger(__name__)
 
@@ -42,6 +44,11 @@ XPOS = 270
 YPOS = 220
 # Vertical space between (top of) each Script Filter
 YOFFSET = 170
+
+# File in data directory holding the workflow version that last
+# checked info.plist for missing searches. Also read by the Go
+# `search` program (see pkg/search.go).
+RESTORED_VERSION_FILE = 'restored_version'
 
 # UID of action to connect Script Filters to
 OPEN_URL_UID = '1133DEAA-5A8F-4E7D-9E9C-A76CB82D9F92'
@@ -188,6 +195,130 @@ def remove_script_filters(wf, data):
         del data['uidata'][uid]
 
 
+def load_search_file(wf, path):
+    """Load a saved search, filling in keys missing from older files.
+
+    Returns:
+        Search: The search, or ``None`` if the file can't be used.
+
+    """
+    try:
+        with open(path) as fp:
+            d = json.load(fp)
+
+        d['uid'] = util.path2uid(path)
+        # Older searches may lack an icon. Use the engine's icon,
+        # e.g. "Amazon (US)" -> icons/engines/amazon.png
+        if not d.get('icon'):
+            words = d.get('title', '').split()
+            icon = 'icons/engines/{}.png'.format(words[0].lower() if words else '')
+            if not os.path.exists(wf.workflowfile(icon)):
+                icon = 'icon.png'
+            d['icon'] = icon
+            log.info('Using icon "%s" for search "%s"', icon, d['uid'])
+        d.setdefault('jsonpath', '$[1][*]')
+
+        return Search.from_dict(d)
+    except Exception as err:
+        # One bad file mustn't stop the user's other searches loading
+        log.warning('Skipping unreadable search "%s": %s', path, err)
+        return None
+
+
+def load_searches(wf):
+    """Return default searches (minus deleted ones) and user searches."""
+    ctx = Context(wf)
+    all_searches = []
+
+    # Get list of deleted default engines from workflow settings
+    deleted_defaults = set()
+    deleted_config = wf.settings.get('deleted_defaults', '')
+    if deleted_config:
+        deleted_defaults = set(deleted_config.split(','))
+
+    # First, load default searches (excluding deleted ones)
+    for default_data in DEFAULTS:
+        if default_data['uid'] not in deleted_defaults:
+            all_searches.append(Search.from_dict(default_data))
+
+    # Then, load user searches (these will override defaults if same UID)
+    f = util.FileFinder([ctx.searches_dir], ['json'])
+    user_searches = []
+    for p in f:
+        search = load_search_file(wf, p)
+        if search:
+            user_searches.append(search)
+
+    # Merge user searches with defaults, with user searches taking precedence
+    user_uids = {s.uid for s in user_searches}
+    return [s for s in all_searches if s.uid not in user_uids] + user_searches
+
+
+def missing_searches(wf, data):
+    """Return saved searches whose Script Filter is missing or out of date.
+
+    The shipped info.plist always has Script Filters for the default
+    searches (google-en, wikipedia-en, youtube-us), so a keyword the
+    user changed on one of those must be caught by comparing keywords,
+    not just UIDs. Only a Script Filter still carrying the shipped
+    keyword counts as out of date: any other keyword was set in
+    Alfred's editor (or migrated by Alfred) and is left alone.
+    """
+    shipped = {d['uid']: d['keyword'] for d in DEFAULTS}
+    have = {obj['uid']: obj['config'].get('keyword')
+            for obj in data['objects']
+            if obj['type'] == 'alfred.workflow.input.scriptfilter'}
+
+    def out_of_date(s):
+        if s.uid not in have:
+            return True
+        kw = have[s.uid]
+        return kw != s.keyword and kw == shipped.get(s.uid)
+
+    return [s for s in load_searches(wf) if s.keyword and out_of_date(s)]
+
+
+def restore_if_needed(wf):
+    """Re-create Script Filters for saved searches missing from info.plist.
+
+    Updating the workflow replaces info.plist with the shipped copy,
+    which drops the Script Filters generated for the user's searches.
+    The searches themselves are saved in the data directory, so they
+    can be restored from there.
+
+    Returns:
+        int: Number of searches restored.
+
+    """
+    ip = wf.workflowfile('info.plist')
+    with LockFile(ip, timeout=10):
+        with open(ip, 'rb') as fp:
+            data = plistlib.load(fp)
+
+        missing = missing_searches(wf, data)
+        if missing:
+            log.info('Restoring %d search(es) missing or changed in info.plist: %s',
+                     len(missing), ', '.join(s.uid for s in missing))
+            remove_script_filters(wf, data)
+            add_script_filters(wf, data)
+            with open(ip, 'wb') as fp:
+                plistlib.dump(data, fp)
+
+        with open(wf.datafile(RESTORED_VERSION_FILE), 'w') as fp:
+            fp.write(str(wf.version))
+
+    if missing:
+        from workflow.notify import notify
+        n = len(missing)
+        try:
+            notify('Searchio! updated',
+                   'Restored {} search{}'.format(n, '' if n == 1 else 'es'))
+        except Exception as err:
+            log.warning('Failed to post notification: %s', err)
+
+    return len(missing)
+
+
 def add_script_filters(wf, data, searches=None):
     """Add user searches to info.plist data."""
     ctx = Context(wf)
@@ -212,28 +343,8 @@ def add_script_filters(wf, data, searches=None):
             only.add(s.uid)
             log.info('Saved search "%s"', s.title)
 
-    # Load both default and user searches (like user.py does)
-    all_searches = []
-    
-    # Get list of deleted default engines from workflow settings
-    deleted_defaults = set()
-    deleted_config = wf.settings.get('deleted_defaults', '')
-    if deleted_config:
-        deleted_defaults = set(deleted_config.split(','))
-    
-    # First, load default searches (excluding deleted ones)
-    for default_data in DEFAULTS:
-        if default_data['uid'] not in deleted_defaults:
-            all_searches.append(Search.from_dict(default_data))
-    
-    # Then, load user searches (these will override defaults if same UID)
-    f = util.FileFinder([ctx.searches_dir], ['json'])
-    user_searches = [Search.from_file(p) for p in f]
-    
-    # Merge user searches with defaults, with user searches taking precedence
-    user_uids = {s.uid for s in user_searches}
-    searches = [s for s in all_searches if s.uid not in user_uids] + user_searches
-    
+    searches = load_searches(wf)
+
     if only:
         searches = [s for s in searches if s.uid in only]
 
@@ -313,6 +424,10 @@ def run(wf, argv):
     args = docopt(usage(wf), argv)
     searches = None
     log.debug('args=%r', args)
+
+    if args['--if-needed']:
+        restore_if_needed(wf)
+        return
 
     if args['--defaults']:
         searches = [Search.from_dict(d) for d in DEFAULTS]
